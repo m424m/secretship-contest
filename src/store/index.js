@@ -38,10 +38,10 @@ export default createStore({
   },
   actions: {
     setUserTelegramData({ commit }, data) {
-      commit('SET_USER_DATA', data);
+      commit('SET_USER_TG_DATA', data);
     },
     setUserAccountInfo({ commit }, data) {
-      commit('SET_USER_DATA', data);
+      commit('SET_USER_ACCOUNT_INFO', data);
     },
     addNewApp({ commit }, app) {
       commit('ADD_APP', app);
