@@ -14,9 +14,9 @@
 
         <section>
           <h4>Personal info</h4>
-          <form>
-            <TextInput placeholder="First name"/>
-            <TextInput placeholder="Last name"/>
+          <form @submit.prevent="saveData">
+            <TextInput placeholder="First name" v-model="form.firstName"/>
+            <TextInput placeholder="Last name" v-model="form.lastName"/>
             <input type="submit" value="Save Info">
           </form>
         </section>
@@ -26,9 +26,11 @@
 </template>
 
 <script>
+import { onMounted } from 'vue';
 import TextInput from '../components/common/TextInput.vue';
 import AccountPreview from '../components/account/AccountPreview.vue';
 import Tabs from '../components/common/Tabs.vue';
+import { setUserAccountInfo } from '@/api';
 
 export default {
   name: 'EditAccount',
@@ -36,6 +38,21 @@ export default {
     Tabs,
     AccountPreview,
     TextInput,
+  },
+  data() {
+    return {
+      form: {},
+    };
+  },
+  methods: {
+    saveData() {
+      setUserAccountInfo(this.form);
+    },
+  },
+  setup() {
+    onMounted(() => {
+      this.form = { ...this.$store.getters.user.account };
+    });
   },
 };
 </script>

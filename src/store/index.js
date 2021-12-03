@@ -18,7 +18,6 @@ export default createStore({
       };
     },
     SET_USER_ACCOUNT_INFO(state, data) {
-      console.log('SET_USER_ACCOUNT_INFO', data)
       state.user = {
         ...state.user,
         account: data,
@@ -36,7 +35,6 @@ export default createStore({
       commit('SET_USER_TG_DATA', data);
     },
     setUserAccountInfo({ commit }, data) {
-      console.log('setUserAccountInfo')
       commit('SET_USER_ACCOUNT_INFO', data);
     },
     logOut({ commit }) {

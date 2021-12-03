@@ -74,11 +74,6 @@ import TelegramLogin from '@/components/common/TelegramLogin.vue';
 export default {
   name: 'Landing',
   components: { TelegramLogin },
-  methods: {
-    onTelegramAuth(user) {
-      console.log(user);
-    },
-  },
 };
 </script>
 

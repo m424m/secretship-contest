@@ -1,6 +1,6 @@
 <template>
   <label class="input">
-    <input class="input__field" :type="type" :value="value" :placeholder="placeholder"
+    <input class="input__field" :type="type" :value="modelValue" :placeholder="placeholder"
            :disabled="disabled" :name="name" :id="name"/>
     <span class="input__placeholder">{{ placeholder }}</span>
   </label>
@@ -10,7 +10,7 @@
 export default {
   name: 'TextInput',
   props: {
-    value: {},
+    modelValue: {},
     placeholder: String,
     type: {
       type: String,
