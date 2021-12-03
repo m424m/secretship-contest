@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <component :is="'script'" src="https://telegram.org/js/telegram-widget.js?15"
-               data-telegram-login="samplebot" data-size="large"
+               data-telegram-login="chtqqrwet_bot" data-size="large"
                data-onauth="onTelegramAuth"
                data-request-access="write"/>
     <button class="login__facade">Log in</button>
