@@ -27,6 +27,7 @@
 
 <script>
 import { onMounted } from 'vue';
+import { useStore } from 'vuex';
 import TextInput from '../components/common/TextInput.vue';
 import AccountPreview from '../components/account/AccountPreview.vue';
 import Tabs from '../components/common/Tabs.vue';
@@ -51,7 +52,8 @@ export default {
   },
   setup() {
     onMounted(() => {
-      this.form = { ...this.$store.getters.user.account };
+      const store = useStore()
+      this.form = { ...store.getters.user.account };
     });
   },
 };
