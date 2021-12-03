@@ -9,8 +9,23 @@
 </template>
 
 <script>
+import { onBeforeUnmount, onMounted } from 'vue';
+
 export default {
   name: 'TelegramLogin',
+  beforeUnmount() {
+    window.onTelegramAuth = null
+  },
+  setup() {
+    onMounted(() => {
+      window.onTelegramAuth = (data) => {
+        console.log(data)
+      }
+    })
+    onBeforeUnmount(() => {
+      window.onTelegramAuth = null
+    })
+  },
 };
 </script>
 
@@ -37,7 +52,8 @@ export default {
     left 0
     width 100%
     height 100%
+    pointer-events none
 
-    &:active
-      pointer-events none
+  &:hover &__facade
+    background-color accent-hover
 </style>
