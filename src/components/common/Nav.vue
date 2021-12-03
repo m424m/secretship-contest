@@ -6,11 +6,11 @@
       <Dropdown>
         <template #toggle>
           <span class="nav__user-name">
-            {{user.telegram.full_name}}
+            {{user.telegram.first_name}} {{user.telegram.last_name}}
             <Icon name="chevron-down"/>
             <img
               :src="user.telegram.photo_url"
-              class="nav__user-avatar" :alt="user.telegram.full_name">
+              class="nav__user-avatar" :alt="user.telegram.first_name">
           </span>
         </template>
 

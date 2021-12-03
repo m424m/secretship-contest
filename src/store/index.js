@@ -7,16 +7,17 @@ export default createStore({
     apps: [],
   },
   getters: {
-    user: (state) => ({
-      telegram: {
-        ...state.user?.telegram,
-        full_name: `${state.user?.telegram.first_name} ${state.user?.telegram.last_name}`.trim(),
-      },
-      account: {
-        ...state.user?.account,
-        full_name: `${state.user?.account.firstName} ${state.user?.telegram.lastName}`.trim(),
-      },
-    }),
+    // user: (state) => ({
+    //   telegram: {
+    //     ...state.user?.telegram,
+    //     full_name: `${state.user?.telegram.first_name} ${state.user?.telegram.last_name}`.trim(),
+    //   },
+    //   account: {
+    //     ...state.user?.account,
+    //     full_name: `${state.user?.account.firstName} ${state.user?.telegram.lastName}`.trim(),
+    //   },
+    // }),
+    user: (state) => state.user,
     apps: (state) => state.apps,
   },
   mutations: {

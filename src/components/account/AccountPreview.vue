@@ -2,9 +2,9 @@
   <div class="account">
     <img
       :src="user.telegram.photo_url"
-      class="account__avatar" :alt="user.telegram.full_name"/>
+      class="account__avatar" :alt="user.telegram.first_name"/>
     <div class="account__info">
-      <div class="account__name">{{ user.telegram.full_name }}</div>
+      <div class="account__name">{{ user.telegram.first_name }} {{user.telegram.last_name}}</div>
       <div class="account__type">Personal account</div>
     </div>
   </div>
