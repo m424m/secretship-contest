@@ -12,6 +12,10 @@ export function setUserTelegramData(data) {
   })
 }
 
+export function setUserAccountInfo(data) {
+  store.dispatch('setUserAccountInfo', data)
+}
+
 export function getUser() {
   return store.getters.user;
 }

@@ -30,7 +30,7 @@ import { onMounted } from 'vue';
 import TextInput from '../components/common/TextInput.vue';
 import AccountPreview from '../components/account/AccountPreview.vue';
 import Tabs from '../components/common/Tabs.vue';
-import { setUserAccountInfo } from '@/api';
+import { setUserAccountInfo } from '../api';
 
 export default {
   name: 'EditAccount',
