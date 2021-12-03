@@ -7,6 +7,8 @@ import store from './store';
 
 const app = createApp(App)
 
+app.config.devtools = true
+
 app.component('inline-svg', InlineSvg)
 app.use(ClickOutside)
 
