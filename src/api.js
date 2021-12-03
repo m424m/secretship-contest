@@ -3,7 +3,7 @@ import router from './router';
 
 export function setUserTelegramData(data) {
   store.dispatch('setUserTelegramData', data).then(() => {
-    if (!store.getters.user?.account.firstName) {
+    if (!store.getters.user.account) {
       store.dispatch('setUserAccountInfo', {
         firstName: data.first_name,
         lastName: data?.last_name,
