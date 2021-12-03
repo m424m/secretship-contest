@@ -32,7 +32,7 @@ export default {
   align-items center
   border 2px solid accent
   border-radius 6px
-  padding 12px 15px
+  padding 12px
   gap 15px
 
   &__avatar
@@ -56,6 +56,6 @@ export default {
 
   &__type
     font-size 13px
-    color #808080
+    color text-secondary
     margin-top 2px
 </style>

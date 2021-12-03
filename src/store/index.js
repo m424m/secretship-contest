@@ -25,6 +25,7 @@ export default createStore({
     },
     CLEAR_USER_DATA(state) {
       state.user = null;
+      state.apps = []
     },
     ADD_APP(state, app) {
       state.apps = [...state.apps, app];
@@ -40,8 +41,10 @@ export default createStore({
     logOut({ commit }) {
       commit('CLEAR_USER_DATA');
     },
-    addNewApp({ commit }, app) {
+    addNewApp({ commit, state }, data) {
+      const app = { ...data, id: state.apps.length }
       commit('ADD_APP', app);
+      return app
     },
   },
   modules: {},

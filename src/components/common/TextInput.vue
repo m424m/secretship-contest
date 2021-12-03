@@ -1,8 +1,10 @@
 <template>
   <label class="input">
     <input class="input__field" :type="type" :value="modelValue" :placeholder="placeholder"
-           :disabled="disabled" :name="name" :id="name"/>
-    <span class="input__placeholder">{{ placeholder }}</span>
+           :disabled="disabled" :name="name" :id="name" @input="emit"/>
+    <span :class="['input__placeholder', {small: smallPlaceholder}]">{{ placeholder }}</span>
+
+    <small class="input__hint" v-if="hint">{{hint}}</small>
   </label>
 </template>
 
@@ -20,6 +22,13 @@ export default {
     name: String,
     prefix: String,
     hint: String,
+    tooltip: String,
+    smallPlaceholder: Boolean,
+  },
+  methods: {
+    emit(e) {
+      this.$emit('update:modelValue', e.target.value)
+    },
   },
 };
 </script>
@@ -61,6 +70,7 @@ export default {
     transition all .2s ease
     transform-origin 0 50%
     user-select none
+    pointer-events none
 
     &::after
       content ''
@@ -75,14 +85,25 @@ export default {
       transform-origin 8px 50%
       z-index -1
 
-  &__field:focus + &__placeholder
+  &__field:focus + &__placeholder:not(.small)
+    opacity .6
+
+  &__field:not(:placeholder-shown) + &__placeholder:not(.small)
+    display none
+
+  &__field:focus + &__placeholder.small
     color link
 
-  &__field:not(:placeholder-shown) + &__placeholder
-  &__field:focus + &__placeholder
+  &__field:not(:placeholder-shown) + &__placeholder.small
+  &__field:focus + &__placeholder.small
     top 0
     transform translateY(-50%) scale(.93)
 
     &::after
       transform scaleX(1)
+
+  &__hint
+    display block
+    margin-top 10px
+    margin-left 15px
 </style>

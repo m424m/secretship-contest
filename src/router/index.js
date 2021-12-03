@@ -1,13 +1,13 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import Landing from '../views/Landing.vue';
-import EditAccount from '../views/EditAccount.vue';
+import EditAccount from '../views/account/EditAccount.vue';
 import Help from '../views/Help.vue';
-import Apps from '../views/Apps.vue';
-import ViewApp from '../views/ViewApp.vue';
-import CreateApp from '../views/CreateApp.vue';
-import Wallet from '../views/app/Wallet.vue';
-import Users from '../views/app/Users.vue';
-import Settings from '../views/app/Settings.vue';
+import Apps from '../views/apps/Apps.vue';
+import AppBase from '../views/apps/AppBase.vue';
+import CreateApp from '../views/apps/CreateApp.vue';
+import Wallet from '../views/apps/Wallet.vue';
+import Users from '../views/apps/Users.vue';
+import Settings from '../views/apps/Settings.vue';
 import store from '@/store';
 
 const routes = [
@@ -37,7 +37,7 @@ const routes = [
   },
   {
     path: '/apps/:id',
-    component: ViewApp,
+    component: AppBase,
     meta: { needAuth: true },
     redirect: (to) => ({
       path: `/apps/${to.params.id}/wallet`,
@@ -45,14 +45,17 @@ const routes = [
     children: [
       {
         path: 'wallet',
+        name: 'AppWallet',
         component: Wallet,
       },
       {
         path: 'users',
+        name: 'AppUsers',
         component: Users,
       },
       {
         path: 'settings',
+        name: 'AppSettings',
         component: Settings,
       },
     ],

@@ -14,6 +14,8 @@ export default {
 @import "~@/styles/vars.styl"
 
 .tabs
+  margin-bottom 30px
+
   ::v-deep(a)
     display inline-block
     width fit-content
@@ -30,6 +32,6 @@ export default {
       background-color #f0f6fa
 
     &.router-link-exact-active
-      background-color accent
+      background-color accent-dark
       color white
 </style>
