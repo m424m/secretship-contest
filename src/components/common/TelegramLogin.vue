@@ -1,34 +1,39 @@
 <template>
   <div class="login">
-    <component :is="'script'" src="https://telegram.org/js/telegram-widget.js?15"
-               data-telegram-login="chtqqrwet_bot" data-size="large"
-               data-auth-url="https://google.com"/>
-    <component :is="'script'">
-      function onTgAuth(user) {
-      alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id +
-      (user.username ? ', @' + user.username : '') + ')');
-      }
-    </component>
+<!--    <component :is="'script'" src="https://telegram.org/js/telegram-widget.js?15"-->
+<!--               data-telegram-login="chtqqrwet_bot" data-size="large"-->
+<!--               data-auth-url="https://google.com"/>-->
+<!--    <component :is="'script'">-->
+<!--      function onTgAuth(user) {-->
+<!--      alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id +-->
+<!--      (user.username ? ', @' + user.username : '') + ')');-->
+<!--      }-->
+<!--    </component>-->
+    <telegram-login-temp
+      mode="callback"
+      telegram-login="chtqqrwet_bot"
+      @loaded='telegramLoadedCallbackFunc'
+      @callback="yourCallbackFunction"/>
     <button class="login__facade">Log in</button>
   </div>
 </template>
 
 <script>
-import { onBeforeUnmount, onMounted } from 'vue';
+import { telegramLoginTemp } from 'vue3-telegram-login'
 
 export default {
   name: 'TelegramLogin',
-  setup() {
-    onMounted(() => {
-      window.onTelegramAuth = (data) => {
-        console.log(data);
-      };
-    });
-    onBeforeUnmount(() => {
-      window.onTelegramAuth = null;
-    });
+  components: { telegramLoginTemp },
+  methods: {
+    telegramLoadedCallbackFunc() {
+      console.log('loaded')
+    },
+    yourCallbackFunction(data) {
+      console.log(data)
+      alert(data)
+    },
   },
-};
+}
 </script>
 
 <style lang="stylus" scoped>
