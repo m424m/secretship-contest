@@ -26,10 +26,11 @@ export default {
       this.isLoaded = true;
     },
     onLogin(result) {
-      if (result?.data) {
-        setUserTelegramData(result.data)
-        this.$router.push('/apps')
-      }
+      console.log(result);
+      // if (result?.data) {
+      setUserTelegramData(result.data);
+      this.$router.push('/apps');
+      // }
     },
   },
 };
