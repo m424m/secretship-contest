@@ -2,7 +2,7 @@
   <div class="login">
     <component :is="'script'" src="https://telegram.org/js/telegram-widget.js?15"
                data-telegram-login="chtqqrwet_bot" data-size="large"
-               data-onauth="onTgAuth"/>
+               data-auth-url="https://google.com"/>
     <component :is="'script'">
       function onTgAuth(user) {
       alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id +
