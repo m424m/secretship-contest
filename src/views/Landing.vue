@@ -64,8 +64,6 @@
         an account</strong> on the Ad Platform and <strong>try out the interface</strong>. For a
         detailed overview of the platform, see <a
           href="https://promote.telegram.org/getting-started">this guide</a>.</p>
-
-      <TelegramLogin/>
     </section>
   </main>
 </template>

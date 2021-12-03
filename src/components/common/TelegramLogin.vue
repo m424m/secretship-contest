@@ -1,39 +1,36 @@
 <template>
   <div class="login">
-<!--    <component :is="'script'" src="https://telegram.org/js/telegram-widget.js?15"-->
-<!--               data-telegram-login="chtqqrwet_bot" data-size="large"-->
-<!--               data-auth-url="https://google.com"/>-->
-<!--    <component :is="'script'">-->
-<!--      function onTgAuth(user) {-->
-<!--      alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id +-->
-<!--      (user.username ? ', @' + user.username : '') + ')');-->
-<!--      }-->
-<!--    </component>-->
     <telegram-login-temp
       mode="callback"
       telegram-login="chtqqrwet_bot"
-      @loaded='telegramLoadedCallbackFunc'
-      @callback="yourCallbackFunction"/>
-    <button class="login__facade">Log in</button>
+      @loaded="onLoad"
+      @callback="onLogin"/>
+    <button class="login__facade" :disabled="!isLoaded">Log in</button>
   </div>
 </template>
 
 <script>
-import { telegramLoginTemp } from 'vue3-telegram-login'
+import { telegramLoginTemp } from 'vue3-telegram-login';
+import { setUserData } from '../../api';
 
 export default {
   name: 'TelegramLogin',
   components: { telegramLoginTemp },
+  data() {
+    return {
+      isLoaded: false,
+    };
+  },
   methods: {
-    telegramLoadedCallbackFunc() {
-      console.log('loaded')
+    onLoad() {
+      this.isLoaded = true;
     },
-    yourCallbackFunction(data) {
-      console.log(data)
-      alert(data)
+    onLogin(data) {
+      console.log(data);
+      setUserData(data)
     },
   },
-}
+};
 </script>
 
 <style lang="stylus" scoped>

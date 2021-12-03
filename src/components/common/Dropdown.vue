@@ -22,6 +22,11 @@ export default {
       this.isOpen = false;
     },
   },
+  watch: {
+    $route() {
+      this.isOpen = false
+    },
+  },
 };
 </script>
 
