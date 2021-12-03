@@ -26,7 +26,7 @@ export default {
       this.isLoaded = true;
     },
     onLogin(result) {
-      setUserTelegramData(result.data);
+      setUserTelegramData(result);
       this.$router.push('/apps');
     },
   },
