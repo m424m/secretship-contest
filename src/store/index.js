@@ -9,12 +9,12 @@ export default createStore({
   getters: {
     user: (state) => ({
       telegram: {
-        ...state.user.telegram,
-        full_name: `${state.user.telegram.first_name} ${state.user.telegram.last_name}`.trim(),
+        ...state.user?.telegram,
+        full_name: `${state.user?.telegram.first_name} ${state.user?.telegram.last_name}`.trim(),
       },
       account: {
-        ...state.user.account,
-        full_name: `${state.user.account.firstName} ${state.user.telegram.lastName}`.trim(),
+        ...state.user?.account,
+        full_name: `${state.user?.account.firstName} ${state.user?.telegram.lastName}`.trim(),
       },
     }),
     apps: (state) => state.apps,
