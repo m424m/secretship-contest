@@ -6,11 +6,30 @@ export default createStore({
     user: null,
     apps: [],
   },
+  getters: {
+    user: (state) => ({
+      telegram: {
+        ...state.user.telegram,
+        full_name: `${state.user.telegram.first_name} ${state.user.telegram.last_name}`.trim(),
+      },
+      account: {
+        ...state.user.account,
+        full_name: `${state.user.account.firstName} ${state.user.telegram.lastName}`.trim(),
+      },
+    }),
+    apps: (state) => state.apps,
+  },
   mutations: {
-    SET_USER_DATA(state, data) {
+    SET_USER_TG_DATA(state, data) {
       state.user = {
         ...state.user,
-        data,
+        telegram: data,
+      };
+    },
+    SET_USER_ACCOUNT_INFO(state, data) {
+      state.user = {
+        ...state.user,
+        account: data,
       };
     },
     ADD_APP(state, app) {
@@ -18,7 +37,10 @@ export default createStore({
     },
   },
   actions: {
-    setUserData({ commit }, data) {
+    setUserTelegramData({ commit }, data) {
+      commit('SET_USER_DATA', data);
+    },
+    setUserAccountInfo({ commit }, data) {
       commit('SET_USER_DATA', data);
     },
     addNewApp({ commit }, app) {

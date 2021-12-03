@@ -5,11 +5,12 @@
     <div class="nav__user">
       <Dropdown>
         <template #toggle>
-          <span class="nav__user-name">A · M
+          <span class="nav__user-name">
+            {{user.telegram.full_name}}
             <Icon name="chevron-down"/>
             <img
-              src="https://cdn4.telesco.pe/file/WOEYrzgyJupTbfQSSBbYZ-gl-XJDaNLdd0of-MzMhqT3mmKHU582-TVdvNI84U4ogVYZf-Knd98JWNwIbbrZ7qfsnYPYsS0-sP_HBIH9n2SPP_o-Lr0S60xBxIaZ6DiDY1OFG8bQBXLfGdMi6kTglU2KD9xYqDBlLNc_PgWxuhibHxbtpAGkusJNJsXX-k-N4lQTu0Tapn2V8lHwx4mV6i8PzyTPJsOxc7w_M1BrceFzOpEIc6tVa0jK67tbm6AELyrpWYwIJAn2iBz_hTGNwc8s1SitU9H9ju50ifp2Y6PQ0noVjhGlNXRbSMOwtMWYZcdIfeY8UvSBhedzOqbo_Q.jpg"
-              class="nav__user-avatar" alt="A · M">
+              :src="user.telegram.photo_url"
+              class="nav__user-avatar" :alt="user.telegram.full_name">
           </span>
         </template>
 
@@ -43,6 +44,7 @@
 <script>
 import Icon from '@/components/common/Icon.vue';
 import Dropdown from '@/components/common/Dropdown.vue';
+import { getUser } from '../../api';
 
 export default {
   name: 'Nav',
@@ -51,13 +53,8 @@ export default {
     Icon,
   },
   computed: {
-    breadcrumbs() {
-      return [
-        {
-          name: 'Telegram Ads',
-          url: '/',
-        },
-      ];
+    user() {
+      return getUser();
     },
   },
 };

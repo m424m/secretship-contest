@@ -1,9 +1,9 @@
 import store from '@/store';
 
-export function setUserData(data) {
-  store.dispatch('setUserData', data)
+export function setUserTelegramData(data) {
+  store.dispatch('setUserTelegramData', data)
 }
 
-export function getUserData() {
-  return store.state.user
+export function getUser() {
+  return store.getters.user
 }

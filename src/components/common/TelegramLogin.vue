@@ -11,7 +11,7 @@
 
 <script>
 import { telegramLoginTemp } from 'vue3-telegram-login';
-import { setUserData } from '../../api';
+import { setUserTelegramData } from '../../api';
 
 export default {
   name: 'TelegramLogin',
@@ -25,9 +25,11 @@ export default {
     onLoad() {
       this.isLoaded = true;
     },
-    onLogin(data) {
-      console.log(data);
-      setUserData(data)
+    onLogin(result) {
+      if (result?.data) {
+        setUserTelegramData(result.data)
+        this.$router.push('/apps')
+      }
     },
   },
 };

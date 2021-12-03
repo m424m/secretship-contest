@@ -8,6 +8,7 @@ import CreateApp from '../views/CreateApp.vue';
 import Wallet from '../views/app/Wallet.vue';
 import Users from '../views/app/Users.vue';
 import Settings from '../views/app/Settings.vue';
+import store from '@/store';
 
 const routes = [
   {
@@ -20,6 +21,7 @@ const routes = [
     path: '/apps',
     name: 'Apps',
     component: Apps,
+    meta: { needAuth: true },
   },
   {
     path: '/account/edit',
@@ -34,7 +36,7 @@ const routes = [
   {
     path: '/apps/:id',
     component: ViewApp,
-    // redirect: '/apps/:id/wallet',
+    meta: { needAuth: true },
     redirect: (to) => ({
       path: `/apps/${to.params.id}/wallet`,
     }),
@@ -67,6 +69,13 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
+});
+
+router.beforeEach((to) => {
+  if (to.meta.needAuth && !store.state.user) {
+    return '/'
+  }
+  return true
 });
 
 export default router;
