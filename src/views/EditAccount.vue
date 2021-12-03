@@ -51,8 +51,8 @@ export default {
     },
   },
   setup() {
+    const store = useStore()
     onMounted(() => {
-      const store = useStore()
       this.form = { ...store.getters.user.account };
     });
   },
