@@ -27,11 +27,13 @@ const routes = [
     path: '/account/edit',
     name: 'EditAccount',
     component: EditAccount,
+    meta: { needAuth: true },
   },
   {
     path: '/apps/create',
     name: 'CreateApp',
     component: CreateApp,
+    meta: { needAuth: true },
   },
   {
     path: '/apps/:id',
@@ -72,9 +74,8 @@ const router = createRouter({
 });
 
 router.beforeEach((to) => {
-  if (to.meta.needAuth && !store.state.user) {
-    return '/'
-  }
+  if (to.meta.needAuth && !store.state.user) return '/'
+  if (to.name === 'Landing' && store.state.user) return '/apps'
   return true
 });
 

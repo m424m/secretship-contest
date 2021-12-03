@@ -33,6 +33,9 @@ export default createStore({
         account: data,
       };
     },
+    CLEAR_USER_DATA(state) {
+      state.user = null;
+    },
     ADD_APP(state, app) {
       state.apps = [...state.apps, app];
     },
@@ -43,6 +46,9 @@ export default createStore({
     },
     setUserAccountInfo({ commit }, data) {
       commit('SET_USER_ACCOUNT_INFO', data);
+    },
+    logOut({ commit }) {
+      commit('CLEAR_USER_DATA');
     },
     addNewApp({ commit }, app) {
       commit('ADD_APP', app);

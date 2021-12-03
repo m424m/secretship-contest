@@ -1,8 +1,9 @@
 <template>
   <div class="account">
-    <img
-      :src="user.telegram.photo_url"
-      class="account__avatar" :alt="user.telegram.first_name"/>
+    <div class="account__avatar">
+      <img
+        :src="user.telegram.photo_url" alt=""/>
+    </div>
     <div class="account__info">
       <div class="account__name">{{ user.telegram.first_name }} {{user.telegram.last_name}}</div>
       <div class="account__type">Personal account</div>
@@ -39,6 +40,15 @@ export default {
     width 44px
     height 44px
     border-radius 50%
+    position relative
+    background-color #e6e6e6
+    overflow hidden
+
+    img
+      position absolute
+      top 0
+      left 0
+      width 100%
 
   &__name
     font-size 15px

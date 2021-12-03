@@ -5,13 +5,14 @@
     <div class="nav__user">
       <Dropdown>
         <template #toggle>
-          <span class="nav__user-name">
-            {{user.telegram.first_name}} {{user.telegram.last_name}}
+          <div class="nav__user-name">
+            {{ user.telegram.first_name }} {{ user.telegram.last_name }}
             <Icon name="chevron-down"/>
-            <img
-              :src="user.telegram.photo_url"
-              class="nav__user-avatar" :alt="user.telegram.first_name">
-          </span>
+            <div class="nav__user-avatar">
+              <img
+              :src="user.telegram.photo_url" alt="">
+            </div>
+          </div>
         </template>
 
         <template #menu>
@@ -28,11 +29,9 @@
                 <span>Help</span>
               </router-link>
             </li>
-            <li>
-              <router-link to="/">
-                <Icon name="log-out"/>
-                <span>Log out</span>
-              </router-link>
+            <li @click="logOut">
+              <Icon name="log-out"/>
+              <span>Log out</span>
             </li>
           </ul>
         </template>
@@ -44,13 +43,16 @@
 <script>
 import Icon from '@/components/common/Icon.vue';
 import Dropdown from '@/components/common/Dropdown.vue';
-import { getUser } from '../../api';
+import { getUser, logOut } from '../../api';
 
 export default {
   name: 'Nav',
   components: {
     Dropdown,
     Icon,
+  },
+  methods: {
+    logOut,
   },
   computed: {
     user() {
@@ -96,4 +98,12 @@ export default {
       width 36px
       height 36px
       margin-left 18px
+      position relative
+      background-color #e6e6e6
+
+      img
+        position absolute
+        top 0
+        left 0
+        width 100%
 </style>
