@@ -1,4 +1,4 @@
-# tg-platform-vue3
+# Secretship JS contest submission
 
 ## Project setup
 ```

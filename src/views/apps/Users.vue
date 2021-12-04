@@ -5,7 +5,7 @@
 <script>
 export default {
   name: 'Users',
-};
+}
 </script>
 
 <style lang="less" scoped>

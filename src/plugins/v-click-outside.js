@@ -5,16 +5,16 @@ const ClickOutside = {
         // eslint-disable-next-line no-param-reassign
         el.clickOutsideEvent = (event) => {
           if (!(el === event.target || el.contains(event.target))) {
-            binding.value(event, el);
+            binding.value(event, el)
           }
-        };
-        document.body.addEventListener('click', el.clickOutsideEvent);
+        }
+        document.body.addEventListener('click', el.clickOutsideEvent)
       },
       unmounted(el) {
-        document.body.removeEventListener('click', el.clickOutsideEvent);
+        document.body.removeEventListener('click', el.clickOutsideEvent)
       },
-    });
+    })
   },
-};
+}
 
-export default ClickOutside;
+export default ClickOutside

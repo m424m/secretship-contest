@@ -1,21 +1,21 @@
 <template>
   <main class="apps">
     <section class="input-row">
-      <TextInput placeholder="Search apps"/>
+      <TextInput placeholder="Search apps" v-model="search"/>
       <router-link to="/apps/create">
         <button>Create new app</button>
       </router-link>
     </section>
 
-    <section class="columns">
-      <AppsItem v-for="app in apps" :app="app" :key="app.id" class="column"/>
+    <section class="columns no-center">
+      <AppsItem v-for="app in displayApps" :app="app" :key="app.id" class="column"/>
     </section>
   </main>
 </template>
 
 <script>
 import { useStore } from 'vuex';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import TextInput from '../../components/common/TextInput.vue';
 import AppsItem from '../../components/apps/AppsItem.vue';
 
@@ -27,12 +27,23 @@ export default {
   },
   setup() {
     const store = useStore();
-    const apps = ref({ ...store.getters.apps });
-    return { apps };
+    const apps = ref([...store.getters.apps]);
+
+    const search = ref('');
+
+    const displayApps = computed(() => {
+      if (search.value) {
+        return apps.value.filter((app) => app.name.toLowerCase()
+          .includes(search.value.toLowerCase()));
+      }
+      return apps.value;
+    });
+
+    return {
+      apps,
+      search,
+      displayApps,
+    };
   },
 };
 </script>
-
-<style lang="stylus" scoped>
-
-</style>

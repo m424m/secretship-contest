@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap')
 @import "vars.styl"
 
 *
@@ -46,7 +46,7 @@ h4
   line-height 18px
   font-weight 600
   -webkit-font-smoothing antialiased
-  margin 0 15px 15px
+  margin-bottom 15px
 
 p
   font-size 15px
@@ -68,6 +68,7 @@ small
 
 button
 input[type='submit']
+a.button
   font-family inherit
   font-size 14px
   line-height 20px
@@ -85,6 +86,10 @@ input[type='submit']
   gap 5px
   white-space nowrap
   cursor pointer
+  text-decoration none
+
+  &.small
+    padding 9px 22px
 
   &.plain
     background none
@@ -101,7 +106,15 @@ input[type='submit']
     color rgba(255, 255, 255, 0.6)
     cursor not-allowed
 
+.buttons
+  display flex
+  gap 10px
+  align-items flex-start
+
 form
+  h4
+    margin-left 15px
+
   .input
   button
     margin 20px 0
@@ -121,6 +134,9 @@ form
   gap 20px
   justify-content center
 
+  &.no-center
+    justify-content flex-start
+
   @media mobile
     flex-direction column
     align-items center
@@ -139,3 +155,22 @@ form
 
 section:not(:first-child)
   margin-top 30px
+
+table
+  border-collapse collapse
+  width 100%
+
+  th
+    background-color white
+    text-transform uppercase
+    text-align start
+    font-size 14px
+    padding 15px 10px
+
+  tbody
+    tr
+      td
+        padding 15px 10px
+
+      &:nth-child(odd) td
+        background-color #f3f4f7

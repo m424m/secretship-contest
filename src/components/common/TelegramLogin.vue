@@ -1,6 +1,7 @@
 <template>
   <div class="login">
     <telegram-login-temp
+      class="login__iframe"
       mode="callback"
       telegram-login="chtqqrwet_bot"
       @loaded="onLoad"
@@ -10,27 +11,33 @@
 </template>
 
 <script>
-import { telegramLoginTemp } from 'vue3-telegram-login';
-import { setUserTelegramData } from '../../api';
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { telegramLoginTemp } from 'vue3-telegram-login'
+import { setUserTelegramData } from '../../api'
 
 export default {
   name: 'TelegramLogin',
   components: { telegramLoginTemp },
-  data() {
+  setup() {
+    const router = useRouter()
+    const isLoaded = ref(false)
+
+    const onLoad = () => {
+      isLoaded.value = true
+    }
+    const onLogin = (result) => {
+      setUserTelegramData(result)
+      router.push('/apps')
+    }
+
     return {
-      isLoaded: false,
-    };
+      isLoaded,
+      onLoad,
+      onLogin,
+    }
   },
-  methods: {
-    onLoad() {
-      this.isLoaded = true;
-    },
-    onLogin(result) {
-      setUserTelegramData(result);
-      this.$router.push('/apps');
-    },
-  },
-};
+}
 </script>
 
 <style lang="stylus" scoped>
@@ -43,6 +50,10 @@ export default {
   overflow hidden
   position relative
   border-radius 6px
+
+  &__iframe
+    border-radius 6px
+    overflow hidden
 
   ::v-deep(iframe)
     display block

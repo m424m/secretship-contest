@@ -8,9 +8,9 @@
 </style>
 
 <script>
-import Nav from './components/common/Nav.vue';
+import Nav from './components/common/Nav.vue'
 
 export default {
   components: { Nav },
-};
+}
 </script>

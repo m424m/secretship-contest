@@ -1,14 +1,14 @@
-import { createRouter, createWebHashHistory } from 'vue-router';
-import Landing from '../views/Landing.vue';
-import EditAccount from '../views/account/EditAccount.vue';
-import Help from '../views/Help.vue';
-import Apps from '../views/apps/Apps.vue';
-import AppBase from '../views/apps/AppBase.vue';
-import CreateApp from '../views/apps/CreateApp.vue';
-import Wallet from '../views/apps/Wallet.vue';
-import Users from '../views/apps/Users.vue';
-import Settings from '../views/apps/Settings.vue';
-import store from '@/store';
+import { createRouter, createWebHashHistory } from 'vue-router'
+import Landing from '../views/Landing.vue'
+import EditAccount from '../views/account/EditAccount.vue'
+import Help from '../views/Help.vue'
+import Apps from '../views/apps/Apps.vue'
+import AppBase from '../views/apps/AppBase.vue'
+import CreateApp from '../views/apps/CreateApp.vue'
+import Wallet from '../views/apps/Wallet.vue'
+import Users from '../views/apps/Users.vue'
+import Settings from '../views/apps/Settings.vue'
+import store from '@/store'
 
 const routes = [
   {
@@ -69,17 +69,17 @@ const routes = [
     path: '/:catchAll(.*)',
     redirect: '/apps',
   },
-];
+]
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
-});
+})
 
 router.beforeEach((to) => {
   if (to.meta.needAuth && !store.state.user) return '/'
   if (to.name === 'Landing' && store.state.user) return '/apps'
   return true
-});
+})
 
-export default router;
+export default router

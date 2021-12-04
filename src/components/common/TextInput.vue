@@ -4,7 +4,7 @@
            :disabled="disabled" :name="name" :id="name" @input="emit"/>
     <span :class="['input__placeholder', {small: smallPlaceholder}]">{{ placeholder }}</span>
 
-    <small class="input__hint" v-if="hint">{{hint}}</small>
+    <small class="input__hint" v-if="hint">{{ hint }}</small>
   </label>
 </template>
 
@@ -30,7 +30,7 @@ export default {
       this.$emit('update:modelValue', e.target.value)
     },
   },
-};
+}
 </script>
 
 <style lang="stylus" scoped>

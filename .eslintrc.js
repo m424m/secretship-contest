@@ -16,4 +16,4 @@ module.exports = {
     'semi': 'off',
     'import/no-cycle': 'off'
   },
-};
+}

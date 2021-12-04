@@ -8,12 +8,12 @@
 </template>
 
 <script>
-import Tabs from '../components/common/Tabs.vue';
+import Tabs from '../components/common/Tabs.vue'
 
 export default {
   name: 'Help',
   components: { Tabs },
-};
+}
 </script>
 
 <style lang="stylus" scoped>

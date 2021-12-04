@@ -31,7 +31,7 @@
       <video class="blog_video_player tl_blog_vid_autoplay"
              autoplay="" playsinline="" loop="" muted=""
              poster="https://promote.telegram.org/file/464001900/2/btuJiD_Plu8.202414/7e06161d5568f0720f"
-             style="max-width: 400px;" title="Sponsored Messages on Telegram">
+             style="max-width: 400px" title="Sponsored Messages on Telegram">
         <source
           src="https://promote.telegram.org/file/464001301/3/Re8p47eQMuY.4017265.mp4/4ee8f9f931d15f312a"
           type="video/mp4">
@@ -69,12 +69,12 @@
 </template>
 
 <script>
-import TelegramLogin from '@/components/common/TelegramLogin.vue';
+import TelegramLogin from '@/components/common/TelegramLogin.vue'
 
 export default {
   name: 'Landing',
   components: { TelegramLogin },
-};
+}
 </script>
 
 <style lang="stylus" scoped>

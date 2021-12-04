@@ -10,24 +10,26 @@
 </template>
 
 <script>
+import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+
 export default {
   name: 'Dropdown',
-  data() {
+  setup() {
+    const isOpen = ref(false)
+    const close = () => {
+      isOpen.value = false
+    }
+
+    const route = useRoute()
+    watch(() => route.fullPath, close)
+
     return {
-      isOpen: false,
-    };
+      isOpen,
+      close,
+    }
   },
-  methods: {
-    close() {
-      this.isOpen = false;
-    },
-  },
-  watch: {
-    $route() {
-      this.isOpen = false
-    },
-  },
-};
+}
 </script>
 
 <style lang="stylus" scoped>
@@ -38,13 +40,13 @@ export default {
     position absolute
     top calc(100% + 5px)
     right -1px
-    border 1px solid rgba(0, 0, 0, .07);
+    border 1px solid rgba(0, 0, 0, .07)
     background-color white
-    box-shadow: 0 1px 2px rgba(0, 0, 0, .07);
-    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .07)
+    border-radius: 4px
     padding 5px 0
-    min-width: 230px;
-    max-width: 280px;
+    min-width: 230px
+    max-width: 280px
     z-index 10
 
     ::v-deep(ul)
@@ -54,7 +56,6 @@ export default {
 
       li
         min-height 36px
-        padding 6px 15px
         cursor pointer
         font-size 13px
         font-weight 500
@@ -67,6 +68,7 @@ export default {
           color currentColor
           text-decoration none
           width 100%
+          padding 6px 15px
 
         svg
           width 24px
