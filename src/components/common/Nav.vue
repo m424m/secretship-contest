@@ -90,7 +90,7 @@ export default {
 
     svg
       display block
-      height 22px
+      height 19px
       color accent-dark
 
   &__user

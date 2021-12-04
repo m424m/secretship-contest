@@ -72,6 +72,10 @@ export default {
     user-select none
     pointer-events none
 
+    &.small
+      -webkit-font-smoothing antialiased
+      -moz-osx-font-smoothing grayscale
+
     &::after
       content ''
       width calc(100% + 10px)

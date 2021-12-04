@@ -17,25 +17,38 @@
         </form>
       </div>
     </div>
+
+    <Modal ref="leaveModal" confirm/>
   </main>
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useStore } from 'vuex'
 import TextInput from '../../components/common/TextInput.vue'
 import AccountPreview from '../../components/account/AccountPreview.vue'
 import { setUserAccountInfo } from '../../api'
+import Modal from '../../components/common/Modal.vue'
+import confirmLeave from '../../mixins/confirm-leave'
 
 export default {
   name: 'EditAccount',
   components: {
+    Modal,
     AccountPreview,
     TextInput,
   },
   setup() {
     const store = useStore()
     const form = ref({ ...store.getters.user.account })
+    const dataChanged = ref(false)
+    const leaveModal = ref(null)
+
+    watch(form.value, () => {
+      dataChanged.value = true
+    })
+
+    confirmLeave(dataChanged, leaveModal)
 
     const saveData = () => {
       setUserAccountInfo(form)
@@ -44,11 +57,9 @@ export default {
     return {
       form,
       saveData,
+      dataChanged,
+      leaveModal,
     }
   },
 }
 </script>
-
-<style lang="stylus" scoped>
-
-</style>

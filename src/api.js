@@ -30,7 +30,6 @@ export function createApp(data) {
 }
 
 export function getApp(id) {
-  console.log(store.getters.app(id))
   return store.getters.app(id)
 }
 

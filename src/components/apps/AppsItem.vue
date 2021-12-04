@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="`/apps/${app.id}`" class="app">
+  <router-link :to="`/apps/${app.id}`" class="app column">
     <div class="app__row">
       <div class="app__name">{{ app.name }}</div>
       <div class="app__balance">
@@ -64,7 +64,6 @@ export default {
   &__balance
     display flex
     align-items center
-    //color #dcdcdc
     font-weight 500
 
     &-usd

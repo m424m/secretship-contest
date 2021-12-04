@@ -5,6 +5,7 @@
   box-sizing border-box
   -webkit-tap-highlight-color transparent
   outline none
+  appearance none
 
 html
 body
@@ -19,8 +20,8 @@ body
   margin auto
   max-width 842px
   font-family Roboto, sans-serif
-  -webkit-font-smoothing antialiased
-  -moz-osx-font-smoothing grayscale
+  //-webkit-font-smoothing antialiased
+  //-moz-osx-font-smoothing grayscale
 
   @media mobile
     max-width 600px
@@ -35,6 +36,9 @@ main
 h1, h2, h3, h4, h5, h6
   margin: 20px 0 10px 0
   position relative
+
+  &:first-child
+    margin-top 0
 
 h1
   font-size 20px
@@ -51,6 +55,7 @@ h4
 p
   font-size 15px
   line-height 1.6
+  margin 0 0 8.5px
 
 a
   text-decoration none
@@ -127,6 +132,7 @@ form
 .input-row
   display flex
   gap 15px
+  align-items center
 
 .columns
   display flex
@@ -171,6 +177,15 @@ table
     tr
       td
         padding 15px 10px
+        font-size 15px
+        width 1%
+
+        > *
+          vertical-align middle
+
+        &.date
+          color text-secondary
+          //font-weight 500
 
       &:nth-child(odd) td
         background-color #f3f4f7

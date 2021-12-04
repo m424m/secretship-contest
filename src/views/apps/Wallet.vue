@@ -27,14 +27,15 @@
         </thead>
         <tbody>
         <tr v-for="transaction in transactions" :key="transaction.id">
-          <td>{{ formatDate(transaction.timestamp) }}</td>
-          <td>
+          <td class="date">{{ formatDate(transaction.timestamp) }}</td>
+          <td class="from-to">
             <Icon name="arrow-up" v-if="transaction.to"/>
             <Icon name="arrow-down" v-else-if="transaction.from"/>
-            <span>{{transaction.to || transaction.from}}</span>
+            <a href="#">{{ (transaction.to || transaction.from).name }}</a>
           </td>
-          <td>
-            {{transaction.amount}} <Icon name="ton"/>
+          <td class="amount">
+            {{ transaction.amount }}
+            <Icon name="ton"/>
           </td>
         </tr>
         </tbody>
@@ -51,7 +52,9 @@ import { addMoneyToApp, withdrawMoneyFromApp } from '../../api'
 
 export default {
   name: 'Wallet',
-  components: { Icon },
+  components: {
+    Icon,
+  },
   props: {
     app: {
       required: true,
@@ -68,11 +71,15 @@ export default {
       withdrawMoneyFromApp(app.value.id, 100)
     }
 
+    // I have no idea what the format should be :(
     const transactions = [
       {
         id: 0,
         timestamp: Date.now(),
-        from: '1234509876',
+        from: {
+          name: 'User 1',
+          id: 12345,
+        },
         to: null,
         amount: 50,
       },
@@ -80,13 +87,19 @@ export default {
         id: 1,
         timestamp: Date.now() - 1000000,
         from: null,
-        to: '99234729424',
+        to: {
+          name: 'User 2',
+          id: 54321,
+        },
         amount: 100,
       },
       {
         id: 2,
         timestamp: Date.now() - 200000000,
-        from: '1234509876',
+        from: {
+          name: 'User 3',
+          id: 9853,
+        },
         to: 0,
         amount: 150,
       },
@@ -94,7 +107,10 @@ export default {
         id: 3,
         timestamp: Date.now() - 500000000,
         from: null,
-        to: '728347293423',
+        to: {
+          name: 'User 8',
+          id: 8888,
+        },
         amount: 50,
       },
     ]
@@ -123,11 +139,17 @@ export default {
     align-items center
     gap 8px
 
-    &-ton
-      display flex
-      align-items center
-      gap 6px
-
     &-usd
       color text-secondary
+
+  table
+    .from-to
+      svg
+        margin-right 8px
+
+      .icon-arrow-up
+        color accent-dark
+
+      .icon-arrow-down
+        color success
 </style>

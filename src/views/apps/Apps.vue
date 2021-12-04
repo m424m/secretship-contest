@@ -6,7 +6,7 @@
     </section>
 
     <section class="columns no-center">
-      <AppsItem v-for="app in displayApps" :app="app" :key="app.id" class="column"/>
+      <AppsItem v-for="app in displayApps" :app="app" :key="app.id"/>
     </section>
   </main>
 </template>

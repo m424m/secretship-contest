@@ -1,5 +1,5 @@
 <template>
-  <inline-svg :src="path"/>
+  <inline-svg :src="path" :class="`icon-${name}`"/>
 </template>
 
 <script>
