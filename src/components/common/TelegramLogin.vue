@@ -54,6 +54,7 @@ export default {
   &__iframe
     border-radius 6px
     overflow hidden
+    opacity 0
 
   ::v-deep(iframe)
     display block

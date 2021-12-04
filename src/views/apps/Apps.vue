@@ -2,9 +2,7 @@
   <main class="apps">
     <section class="input-row">
       <TextInput placeholder="Search apps" v-model="search"/>
-      <router-link to="/apps/create">
-        <button>Create new app</button>
-      </router-link>
+      <router-link class="button" to="/apps/create">Create new app</router-link>
     </section>
 
     <section class="columns no-center">
