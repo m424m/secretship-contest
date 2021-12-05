@@ -1,5 +1,11 @@
 <template>
   <div class="select" v-click-outside="closeDropdown">
+    <select class="select__fallback" :name="name" :multiple="multiple" v-model="fallbackValue">
+      <option v-for="(option, i) in options"
+           :key="`option-${i}`">
+        {{ displayKey ? option[displayKey] : option }}
+      </option>
+    </select>
     <TextInput :placeholder="placeholder" v-model="search"
                :small-placeholder="!multiple"
                @focus="openDropdown"
@@ -8,6 +14,7 @@
                :invalid="invalid"
                ref="field"
                @removeOption="removeOption"
+               @keydown="navigateOptions"
     >
       <template #selectItems v-if="multiple && modelValue?.length || !multiple && modelValue">
         <template v-if="multiple && modelValue?.length">
@@ -57,6 +64,7 @@ export default {
     imageKey: String,
     placeholder: String,
     multiple: Boolean,
+    name: String,
     hint: String,
     invalid: [Boolean, String],
     options: Array,
@@ -111,7 +119,7 @@ export default {
             return !modelValue.value
               .includes((displayKey.value ? option[displayKey.value] : option))
           }
-          return modelValue.value !== (displayKey.value ? option[displayKey.value] : option)
+          return true
         })
         // exclude options that do not match search query
         .filter((option) => (displayKey.value ? option[displayKey.value] : option)
@@ -121,16 +129,26 @@ export default {
       return filtered
     })
 
+    const navigateOptions = () => {
+      // TODO: keyboard navigation
+    }
+
+    const fallbackValue = computed(() => {
+      if (displayKey.value) return modelValue.value.map((i) => i[displayKey])
+      return Array.isArray(modelValue.value) ? modelValue.value : [modelValue.value]
+    })
+
     return {
       search,
       isOpen,
-      // options,
       openDropdown,
       closeDropdown,
       selectOption,
       removeOption,
       displayOptions,
       field,
+      navigateOptions,
+      fallbackValue,
     }
   },
 }
@@ -141,6 +159,9 @@ export default {
 
 .select
   position relative
+
+  &__fallback
+    display none
 
   &__options
     position absolute

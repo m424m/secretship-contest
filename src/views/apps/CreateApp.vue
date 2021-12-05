@@ -4,11 +4,13 @@
       <div class="column">
         <form @submit.prevent="addApp">
           <h4>Create new app</h4>
-          <TextInput placeholder="App name" v-model="app.name" small-placeholder
+          <TextInput placeholder="App name" v-model="app.name" name="name" small-placeholder
                      :invalid="validations.name"/>
-          <TextInput placeholder="Link to the app" v-model="app.url" :invalid="validations.url"
+          <TextInput placeholder="Link to the app" v-model="app.url" name="url"
+                     :invalid="validations.url"
                      small-placeholder/>
-          <Select placeholder="Category" v-model="app.category" :options="categories"
+          <Select placeholder="Category" name="category" v-model="app.category"
+                  :options="categories"
                   hint="Select a category for your app." :invalid="validations.category"/>
           <button type="submit" :disabled="disabled">Add App</button>
         </form>

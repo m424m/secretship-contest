@@ -40,7 +40,9 @@ const routes = [
     component: AppBase,
     meta: { needAuth: true },
     redirect: (to) => ({
-      path: `/apps/${to.params.id}/wallet`,
+      // path: `/apps/${to.params.id}/wallet`,
+      name: 'AppWallet',
+      params: to.params,
     }),
     children: [
       {

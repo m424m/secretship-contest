@@ -84,7 +84,7 @@ export default {
     }
 
     const onKeyDown = (e) => {
-      emit('keydown', e)
+      // emit('keydown', e)
       if (!modelValue.value?.toString().length && e.key === 'Backspace') emit('removeOption', 'last')
     }
 
