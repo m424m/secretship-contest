@@ -1,29 +1,37 @@
 <template>
-  <div
-    :class="['input', {focus, 'small-placeholder': smallPlaceholder,
-      'select-items': !!$slots.selectItems}]">
-    <span class="input__prefix" v-if="prefix">{{ prefix }}</span>
-    <div class="input__main">
-      <slot name="selectItems"/>
-      <label :class="['input__label', {empty: !!modelValue}]">
-        <input class="input__field" :type="type" :value="modelValue" :placeholder="placeholder"
-               :disabled="disabled" :name="name" :id="name"
-               @input="emit" @focus="onFocus" @blur="onBlur"/>
-        <span class="input__placeholder" v-if="!smallPlaceholder">{{ placeholder }}</span>
-        <span class="input__small-placeholder" v-if="smallPlaceholder">{{ placeholder }}</span>
-      </label>
-    </div>
+  <div class="input__wrapper">
+    <div
+      :class="['input', {focus, 'small-placeholder': smallPlaceholder,
+      'select-items': !!$slots.selectItems, 'has-content': (modelValue || $slots.selectItems),
+       invalid, 'has-info': !!$slots.info}]">
+      <span class="input__prefix" v-if="prefix">{{ prefix }}</span>
+      <div class="input__main">
+        <slot name="selectItems"/>
+        <label :class="['input__label', {empty: !!modelValue}]">
+          <input class="input__field" :type="type" :value="modelValue" :placeholder="placeholder"
+                 :disabled="disabled" :required="required" :name="name" :id="name"
+                 @input="emit" @focus="onFocus" @blur="onBlur"/>
+          <span class="input__placeholder" v-if="!smallPlaceholder">{{ placeholder }}</span>
+          <span class="input__small-placeholder" v-if="smallPlaceholder">{{ placeholder }}</span>
+        </label>
+      </div>
 
-    <div class="input__meta">
-      <div v-if="hint" class="input__hint">
-        <button type="button" class="input__hint-button plain" v-if="hint">
-          <Icon name="question-bold"/>
-        </button>
-        <div class="input__hint-text">
-          <div class="input__hint-bubble"/>
-          {{hint}}
+      <div class="input__meta">
+        <div v-if="hint" class="input__hint">
+          <button type="button" class="input__hint-button plain" v-if="hint">
+            <Icon name="question-bold"/>
+          </button>
+          <div class="input__hint-text">
+            <div class="input__hint-bubble"/>
+            {{ hint }}
+          </div>
         </div>
       </div>
+    </div>
+
+    <div :class="['input__info', {'static': !!$slots.info}]">
+      <span class="input__info-invalid" v-if="typeof invalid === 'string'">{{ invalid }}</span>
+      <slot name="info" v-else/>
     </div>
   </div>
 </template>
@@ -48,6 +56,10 @@ export default {
     hint: String,
     loading: Boolean,
     smallPlaceholder: Boolean,
+    invalid: [Boolean, String],
+    required: {
+      type: [Boolean, String],
+    },
   },
   methods: {
     emit(e) {
@@ -91,6 +103,10 @@ export default {
   cursor unquote('text')
   flex-wrap wrap
 
+  &__wrapper
+    flex 1
+    width 100%
+
   &__main
     flex 1
     display flex
@@ -101,9 +117,19 @@ export default {
   &.focus
     box-shadow inset 0 0 0 2px accent
 
+    .invalid&
+      box-shadow inset 0 0 0 2px error
+
+  &.invalid
+    box-shadow inset 0 0 0 1px error
+
+  &.invalid &__small-placeholder
+    color error
+
   &__label
     width 100%
     flex 1
+    cursor unquote('text')
 
   &:not(.small-placeholder) &__label
     position relative
@@ -151,9 +177,10 @@ export default {
       opacity 0
 
   &__prefix
-    padding 0 15px
+    padding 17px 15px
     padding-right 0
     transition opacity .2s ease
+    align-self flex-start
 
     .small-placeholder:not(:focus-within) &
       opacity 0
@@ -194,19 +221,22 @@ export default {
   &:not(.small-placeholder) &__field:not(:placeholder-shown) + &__small-placeholder
     display none
 
-  &__field:focus + &__small-placeholder
-  &.focus &__field + &__small-placeholder
+  &:not(.invalid) &__field:focus + &__small-placeholder
+  &:not(.invalid) &.focus &__field + &__small-placeholder
     color link
 
   &__field:not(:placeholder-shown) + &__small-placeholder
   &__field:focus + &__small-placeholder
   &.focus &__field + &__small-placeholder
-  .select-items &__small-placeholder
+  &.has-content &__small-placeholder
     top 0
     transform translateY(calc(-50% - 1px)) scale(.93)
 
     &::after
       transform scaleX(1)
+
+  &.has-content &__prefix
+    opacity 1
 
   &.select-items &__main
     padding 8px 12px
@@ -220,10 +250,14 @@ export default {
 
   &__meta
     padding 5px
+    align-self flex-start
+
+    &:empty
+      display none
 
   &__hint
     padding 10px
-    cursor pointer
+    cursor help
 
     &-button
       margin 0
@@ -232,6 +266,10 @@ export default {
       border-radius 50%
       background-color #c0c4c7
       color white
+      cursor help
+
+      svg
+        width 12px
 
     &-text
       display flex
@@ -240,25 +278,27 @@ export default {
       font-size 14px
       line-height 19px
       color #fff
-      padding 11px 15px 10px
+      padding 10px 15px 10px
       width max-content
       max-width unquote('min(350px, calc(100vw - 30px))')
       position absolute
       right 0
       bottom 100%
+      margin-bottom 3px
       z-index 1
       text-align center
       transition all .2s ease
+      transition-delay .075s
       transform translateY(-10px)
       opacity 0
       visibility hidden
-      transition-delay .075s
 
     &:hover &-text
       opacity 1
       visibility visible
       transform none
       transition-delay .2s
+      cursor help
 
     &-bubble
       content: ''
@@ -280,4 +320,19 @@ export default {
         top 100%
         margin-top -1px
         background-image url("data:image/svg+xml,%3Csvg width='18' height='8' viewBox='0 0 18 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0 1V0H18V1C17.74 1 17.24 1.21 16.86 1.58L11.47 6.91C10.3 8.07 8.42 8.07 7.25 6.91L1.86 1.58C1.48 1.21 0.98 1 0.45 1H0Z' fill='%23202426'/%3E%3C/svg%3E%0A")
+
+  &__info
+    font-size 13px
+    line-height 17px
+    color text-secondary
+    padding-left 15px
+    padding-right 5px
+    margin-top 8px
+
+    &:not(.static)
+      position absolute
+
+    &-invalid
+      font-weight 500
+      color error
 </style>

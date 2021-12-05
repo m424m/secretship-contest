@@ -1,6 +1,6 @@
 <template>
   <div :class="['select-item', {'with-image': !!image}]">
-    <img :src="image" class="select-item__image" v-if="image"/>
+    <img :src="image" class="select-item__image" v-if="image" alt=""/>
     <slot/>
     <button type="button" class="select-item__remove plain" @click.prevent.stop="$emit('remove')">
       <Icon name="x"/>
@@ -37,6 +37,7 @@ export default {
   padding 5px 9px
   padding-right 8px
   color #fff
+  white-space nowrap
 
   &.with-image
     padding 0

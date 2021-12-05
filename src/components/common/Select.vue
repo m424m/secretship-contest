@@ -175,9 +175,6 @@ export default {
 .fade-leave-active
   transition opacity .2s ease
 
-.fade-leave-active
-  transition-delay .075s
-
 .fade-enter-from
 .fade-leave-to
   opacity 0

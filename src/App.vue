@@ -1,5 +1,5 @@
 <template>
-  <Nav v-if="!$route.meta.hideNav"/>
+  <Nav v-if="!$route.meta.hideNav && $store.getters.user"/>
   <router-view/>
 </template>
 

@@ -19,7 +19,7 @@
     <section>
       <h3>Advertising on Telegram</h3>
       <p>Sponsored messages on Telegram are displayed in <strong>large public one-to-many
-        channels</strong> with<strong>1000+</strong> subscribers and are limited to <strong>160
+        channels</strong> with <strong>1000+</strong> subscribers and are limited to <strong>160
         characters</strong>. Sponsored Messages are based solely on the <strong>topic</strong> of
         the public channels in which they are shown.
       </p>

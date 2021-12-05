@@ -118,21 +118,21 @@ a.button
 
 form
   h4
-    margin-left 15px
+    padding-left 15px
+    padding-right 5px
 
-  .input
+  .input__wrapper
   button
     margin 20px 0
     width 100%
 
-  input[type='submit']
+  [type='submit']
     margin 30px 0
     width 100%
 
 .input-row
   display flex
   gap 15px
-  align-items center
 
 .columns
   display flex
@@ -149,7 +149,7 @@ form
 
   .column
     width 100%
-    max-width calc(50% - 20px)
+    max-width calc(50% - 10px)
 
     @media desktop
       &:only-child
