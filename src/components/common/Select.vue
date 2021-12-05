@@ -135,7 +135,7 @@ export default {
 
     const fallbackValue = computed(() => {
       if (displayKey.value) return modelValue.value.map((i) => i[displayKey])
-      return Array.isArray(modelValue.value) ? modelValue.value : [modelValue.value]
+      return modelValue.value
     })
 
     return {
