@@ -143,6 +143,9 @@ export default {
       color text-secondary
 
   table
+    .date
+      color text-secondary
+
     .from-to
       svg
         margin-right 8px

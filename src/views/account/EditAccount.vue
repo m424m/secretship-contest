@@ -12,7 +12,7 @@
             <h4>Personal info</h4>
             <TextInput placeholder="First name" v-model="form.firstName" small-placeholder/>
             <TextInput placeholder="Last name" v-model="form.lastName" small-placeholder/>
-            <input type="submit" value="Save Info">
+            <button type="submit">Save Info</button>
           </section>
         </form>
       </div>
@@ -29,7 +29,7 @@ import TextInput from '../../components/common/TextInput.vue'
 import AccountPreview from '../../components/account/AccountPreview.vue'
 import { setUserAccountInfo } from '../../api'
 import Modal from '../../components/common/Modal.vue'
-import confirmLeave from '../../mixins/confirm-leave'
+import confirmLeave from '../../composables/confirmLeave'
 
 export default {
   name: 'EditAccount',
@@ -52,6 +52,7 @@ export default {
 
     const saveData = () => {
       setUserAccountInfo(form)
+      dataChanged.value = false
     }
 
     return {

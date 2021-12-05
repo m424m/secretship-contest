@@ -148,9 +148,8 @@ form
     align-items center
 
   .column
-    flex 1
     width 100%
-    max-width 50%
+    max-width calc(50% - 20px)
 
     @media desktop
       &:only-child
@@ -182,10 +181,6 @@ table
 
         > *
           vertical-align middle
-
-        &.date
-          color text-secondary
-          //font-weight 500
 
       &:nth-child(odd) td
         background-color #f3f4f7

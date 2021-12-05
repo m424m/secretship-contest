@@ -29,7 +29,7 @@
             </li>
             <li>
               <router-link to="/help">
-                <Icon name="question-mark"/>
+                <Icon name="question-circle"/>
                 <span>Help</span>
               </router-link>
             </li>

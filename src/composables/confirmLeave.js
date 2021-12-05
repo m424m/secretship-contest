@@ -2,8 +2,9 @@ import { watch } from 'vue'
 import { onBeforeRouteLeave } from 'vue-router'
 
 export default function confirmLeave(check, modal) {
-  watch(() => check.value, () => {
-    window.onbeforeunload = () => false
+  watch(() => check.value, (val) => {
+    console.log(val)
+    window.onbeforeunload = () => val || null
   })
 
   onBeforeRouteLeave(async () => {

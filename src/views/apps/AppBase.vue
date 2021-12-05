@@ -13,8 +13,8 @@
 <script>
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
-import Tabs from '../../components/common/Tabs.vue'
-import { getApp } from '../../api'
+import Tabs from '@/components/common/Tabs.vue'
+import { getApp } from '@/api'
 
 export default {
   name: 'AppBase',
