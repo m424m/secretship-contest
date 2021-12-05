@@ -2,10 +2,12 @@
   <div class="select" v-click-outside="closeDropdown">
     <TextInput :placeholder="placeholder" v-model="search"
                :small-placeholder="!multiple"
-               @keydown="keydown" @focus="openDropdown"
+               @focus="openDropdown"
                :class="[{focus: isOpen}]"
                :hint="hint"
+               :invalid="invalid"
                ref="field"
+               @removeOption="removeOption"
     >
       <template #selectItems v-if="multiple && modelValue?.length || !multiple && modelValue">
         <template v-if="multiple && modelValue?.length">
@@ -22,6 +24,8 @@
           {{ displayKey ? modelValue[displayKey] : modelValue }}
         </SelectItem>
       </template>
+
+      <template #info v-if="$slots.info"><slot name="info"/></template>
     </TextInput>
 
     <transition name="fade">
@@ -54,26 +58,18 @@ export default {
     placeholder: String,
     multiple: Boolean,
     hint: String,
+    invalid: [Boolean, String],
+    options: Array,
   },
   setup(props, { emit }) {
     const {
       modelValue,
       displayKey,
       multiple,
+      options,
     } = toRefs(props)
 
     const field = ref(null)
-
-    const options = ref([
-      'Education',
-      'Art & Design',
-      'Books',
-      'Business',
-      'Video Games',
-      'History',
-      'Music',
-      'Movies',
-    ])
 
     const search = ref('')
     const isOpen = ref(false)
@@ -96,10 +92,10 @@ export default {
       closeDropdown()
     }
 
-    const removeOption = (index) => {
+    const removeOption = (index = 'last') => {
       if (multiple.value) {
         const filtered = [...modelValue.value]
-        filtered.splice(index, 1)
+        filtered.splice(index === 'last' ? modelValue.value.length - 1 : index, 1)
         emit('update:modelValue', filtered)
       } else {
         emit('update:modelValue', null)
@@ -125,20 +121,16 @@ export default {
       return filtered
     })
 
-    const keydown = (e) => {
-      if (!search.value.length && e.key === 'Backspace') removeOption(modelValue.value.length - 1)
-    }
-
     return {
       search,
       isOpen,
-      options,
+      // options,
       openDropdown,
       closeDropdown,
       selectOption,
       removeOption,
       displayOptions,
-      keydown,
+      field,
     }
   },
 }
@@ -175,12 +167,4 @@ export default {
 
     &:hover
       background-color #f2f2f2
-
-.fade-enter-active
-.fade-leave-active
-  transition opacity .2s ease
-
-.fade-enter-from
-.fade-leave-to
-  opacity 0
 </style>

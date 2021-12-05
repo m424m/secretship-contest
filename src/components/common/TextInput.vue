@@ -2,7 +2,7 @@
   <div class="input__wrapper">
     <div
       :class="['input', {focus, 'small-placeholder': smallPlaceholder,
-      'select-items': !!$slots.selectItems, 'has-content': (modelValue || $slots.selectItems),
+      'select-items': !!$slots.selectItems, 'has-content': (modelValue || !!$slots.selectItems),
        invalid, 'has-info': !!$slots.info}]">
       <span class="input__prefix" v-if="prefix">{{ prefix }}</span>
       <div class="input__main">
@@ -10,7 +10,7 @@
         <label :class="['input__label', {empty: !!modelValue}]">
           <input class="input__field" :type="type" :value="modelValue" :placeholder="placeholder"
                  :disabled="disabled" :required="required" :name="name" :id="name"
-                 @input="emit" @focus="onFocus" @blur="onBlur"/>
+                 @input="emit" @focus="onFocus" @blur="onBlur" @keydown="onKeyDown"/>
           <span class="input__placeholder" v-if="!smallPlaceholder">{{ placeholder }}</span>
           <span class="input__small-placeholder" v-if="smallPlaceholder">{{ placeholder }}</span>
         </label>
@@ -30,21 +30,24 @@
     </div>
 
     <div :class="['input__info', {'static': !!$slots.info}]">
-      <span class="input__info-invalid" v-if="typeof invalid === 'string'">{{ invalid }}</span>
-      <slot name="info" v-else/>
+      <transition name="fade" mode="out-in">
+        <span class="input__info-invalid" :key="invalid"
+              v-if="typeof invalid === 'string'">{{ invalid }}</span>
+        <span class="input__info-text" v-else key="info"><slot name="info"/></span>
+      </transition>
     </div>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, toRefs } from 'vue'
 import Icon from './Icon.vue'
 
 export default {
   name: 'TextInput',
   components: { Icon },
   props: {
-    modelValue: {},
+    modelValue: [String, Number],
     placeholder: String,
     type: {
       type: String,
@@ -67,6 +70,7 @@ export default {
     },
   },
   setup(props, { emit }) {
+    const { modelValue } = toRefs(props)
     const focus = ref(false)
 
     const onFocus = () => {
@@ -79,10 +83,16 @@ export default {
       emit('blur')
     }
 
+    const onKeyDown = (e) => {
+      emit('keydown', e)
+      if (!modelValue.value?.toString().length && e.key === 'Backspace') emit('removeOption', 'last')
+    }
+
     return {
       focus,
       onFocus,
       onBlur,
+      onKeyDown,
     }
   },
 }
@@ -114,7 +124,7 @@ export default {
     flex-wrap wrap
 
   &:focus-within
-  &.focus
+  .focus &
     box-shadow inset 0 0 0 2px accent
 
     .invalid&
@@ -176,6 +186,11 @@ export default {
       font-size 0
       opacity 0
 
+    &[type=number]::-webkit-inner-spin-button
+    &[type=number]::-webkit-outer-spin-button
+      -webkit-appearance none
+      margin 0
+
   &__prefix
     padding 17px 15px
     padding-right 0
@@ -206,9 +221,9 @@ export default {
       content ''
       width calc(100% + 10px)
       background-color white
-      height 100%
+      height 4px
       position absolute
-      top 0
+      top 7px
       left -5px
       transform scaleX(0)
       transition all .2s ease
@@ -222,15 +237,15 @@ export default {
     display none
 
   &:not(.invalid) &__field:focus + &__small-placeholder
-  &:not(.invalid) &.focus &__field + &__small-placeholder
+  .focus &:not(.invalid) &__field + &__small-placeholder
     color link
 
   &__field:not(:placeholder-shown) + &__small-placeholder
   &__field:focus + &__small-placeholder
-  &.focus &__field + &__small-placeholder
+  .focus &__field + &__small-placeholder
   &.has-content &__small-placeholder
     top 0
-    transform translateY(calc(-50% - 1px)) scale(.93)
+    transform translateY(-50%) scale(.93)
 
     &::after
       transform scaleX(1)
@@ -331,6 +346,7 @@ export default {
 
     &:not(.static)
       position absolute
+      margin-top 2px
 
     &-invalid
       font-weight 500
