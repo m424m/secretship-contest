@@ -6,7 +6,8 @@
       <span class="radio__ripple" ref="rippleMask">
         <span class="radio__ripple-inner" :style="rippleStyle" ref="ripple"/>
       </span>
-      <span class="radio__check" @mousedown="onMouseDown" @mouseup="onMouseUp"/>
+      <span class="radio__check" @mousedown="onMouseDown" @mouseup="onMouseUp"
+            @touchstart="onMouseDown" @touchend="onMouseUp"/>
     </span>
     <span class="radio__label">
       <slot></slot>

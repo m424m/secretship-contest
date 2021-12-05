@@ -6,7 +6,8 @@
       <span class="checkbox__ripple" ref="rippleMask">
         <span class="checkbox__ripple-inner" :style="rippleStyle" ref="ripple"/>
       </span>
-      <span class="checkbox__check" @mousedown="onMouseDown" @mouseup="onMouseUp"/>
+      <span class="checkbox__check" @mousedown="onMouseDown" @mouseup="onMouseUp"
+            @touchstart="onMouseDown" @touchend="onMouseUp"/>
     </span>
     <span class="checkbox__label">
       <slot></slot>
