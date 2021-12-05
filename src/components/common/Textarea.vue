@@ -1,7 +1,7 @@
 <template>
   <div class="textarea__wrapper input__wrapper">
     <div :class="['textarea', {invalid}]">
-    <textarea class="textarea__field" :placeholder="placeholder" :value="modelValue"
+    <textarea class="textarea__field" :name="name" :placeholder="placeholder" :value="modelValue"
               @input="onInput" :rows="rows"/>
 
       <div class="textarea__meta">
@@ -36,6 +36,7 @@ export default {
   props: {
     modelValue: String,
     placeholder: String,
+    name: String,
     hint: String,
     rows: [Number, String],
     invalid: [Boolean, String],

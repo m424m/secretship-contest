@@ -9,7 +9,7 @@
         <slot name="selectItems"/>
         <label :class="['input__label', {empty: !!modelValue}]">
           <input class="input__field" :type="type" :value="modelValue" :placeholder="placeholder"
-                 :disabled="disabled" :required="required" :name="name" :id="name"
+                 :disabled="disabled" :required="required" :name="name"
                  @input="emit" @focus="onFocus" @blur="onBlur" @keydown="onKeyDown"/>
           <span class="input__placeholder" v-if="!smallPlaceholder">{{ placeholder }}</span>
           <span class="input__small-placeholder" v-if="smallPlaceholder">{{ placeholder }}</span>
