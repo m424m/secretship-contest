@@ -177,6 +177,7 @@ export default {
     color text
     line-height 18px
     padding 15px
+    margin 0
     transition box-shadow .2s ease
     border none
     background none

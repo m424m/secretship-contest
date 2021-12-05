@@ -57,7 +57,7 @@ export default {
 
   ::v-deep(iframe)
     display block
-    transform scale(10)
+    transform scale(8)
     transform-origin 10% 30%
     border-radius 6px
 

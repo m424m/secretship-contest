@@ -51,7 +51,7 @@ export default {
     ]
 
     // This is just one of an infinite number of approaches to form validation.
-    // You are free to do this any way you want.
+    // It may look ugly, but it works.
     const validate = ref(false)
     const validations = computed(() => {
       if (!validate.value) return {}

@@ -85,6 +85,7 @@ export default {
     resize none
     width 100%
     padding 15px
+    margin 0
     font-family inherit
     color text
     font-size 14px
