@@ -92,6 +92,7 @@ export default {
       } else {
         emit('update:modelValue', option)
       }
+      search.value = ''
       closeDropdown()
     }
 
