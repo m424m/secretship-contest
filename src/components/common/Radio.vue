@@ -20,7 +20,7 @@ import { ref, toRefs } from 'vue'
 export default {
   name: 'Radio',
   props: {
-    modelValue: Boolean,
+    modelValue: null,
     value: null,
     disabled: Boolean,
     name: String,
