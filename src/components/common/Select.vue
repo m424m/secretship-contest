@@ -5,6 +5,7 @@
                @keydown="keydown" @focus="openDropdown"
                :class="[{focus: isOpen}]"
                :hint="hint"
+               ref="field"
     >
       <template #selectItems v-if="multiple && modelValue?.length || !multiple && modelValue">
         <template v-if="multiple && modelValue?.length">
@@ -61,6 +62,8 @@ export default {
       multiple,
     } = toRefs(props)
 
+    const field = ref(null)
+
     const options = ref([
       'Education',
       'Art & Design',
@@ -77,6 +80,7 @@ export default {
 
     const openDropdown = () => {
       isOpen.value = true
+      field.value.$el.scrollIntoView()
     }
     const closeDropdown = () => {
       isOpen.value = false
