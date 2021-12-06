@@ -28,17 +28,29 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import {
+  onMounted, ref, toRefs, watch,
+} from 'vue'
 
 export default {
   name: 'Modal',
   props: {
     small: Boolean,
     confirm: Boolean,
+    open: Boolean,
   },
-  setup() {
+  setup(props) {
+    const { open } = toRefs(props)
     const isOpen = ref(false)
     const answer = ref(null)
+
+    onMounted(() => {
+      isOpen.value = open.value
+    })
+
+    watch(() => open.value, (val) => {
+      isOpen.value = val
+    })
 
     const show = () => {
       isOpen.value = true
@@ -98,17 +110,27 @@ export default {
     width fit-content
     font-size 14px
     z-index 1
-    min-width: 240px;
-    max-width: 600px;
+    min-width 240px
+    max-width 600px
+    margin 20px
+    max-height calc(100vh - 40px)
+    display flex
+    flex-direction column
 
     .small &
       width 350px
 
+      @media mobile
+        width 100%
+        margin 40px
+        max-height calc(100vh - 80px)
+
   &__body
     padding 30px 35px
     padding-bottom 20px
-    font-size: 15px;
-    line-height: 24px;
+    font-size 15px
+    line-height 24px
+    overflow auto
 
     .small &
       padding 23px
