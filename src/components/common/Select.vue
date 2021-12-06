@@ -10,6 +10,7 @@
                :small-placeholder="!multiple"
                @focus="openDropdown"
                :class="[{focus: isOpen}]"
+               :disabled="disabled"
                :hint="hint"
                :invalid="invalid"
                ref="field"
@@ -64,6 +65,7 @@ export default {
     imageKey: String,
     placeholder: String,
     multiple: Boolean,
+    disabled: Boolean,
     name: String,
     hint: String,
     invalid: [Boolean, String],

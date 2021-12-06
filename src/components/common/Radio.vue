@@ -1,7 +1,7 @@
 <template>
   <label class="input__wrapper radio">
     <input type="radio" :name="name" :checked="modelValue === value" class="radio__input"
-           @change="onChange">
+           @change="onChange" :disabled="disabled">
     <span class="radio__facade">
       <span class="radio__ripple" ref="rippleMask">
         <span class="radio__ripple-inner" :style="rippleStyle" ref="ripple"/>
@@ -92,11 +92,14 @@ export default {
   &__input
     position absolute
     left -9999px
-    visibility hidden
 
   &__facade
     position relative
     margin-top 1px
+
+  &__input:disabled + &__facade
+    pointer-events none
+    opacity .65
 
   &__check
     display block

@@ -1,7 +1,7 @@
 <template>
   <div class="input__wrapper">
     <div
-      :class="['input', {focus, 'small-placeholder': smallPlaceholder,
+      :class="['input', {focus, disabled, 'small-placeholder': smallPlaceholder,
       'select-items': !!$slots.selectItems, 'has-content': (modelValue || !!$slots.selectItems),
        invalid, 'has-info': !!$slots.info}]">
       <span class="input__prefix" v-if="prefix">{{ prefix }}</span>
@@ -9,8 +9,8 @@
         <slot name="selectItems"/>
         <label :class="['input__label', {empty: !!modelValue}]">
           <input class="input__field" :type="type" :value="modelValue" :placeholder="placeholder"
-                 :disabled="disabled" :required="required" :name="name"
-                 @input="emit" @focus="onFocus" @blur="onBlur" @keydown="onKeyDown"/>
+                 :disabled="disabled" :name="name"
+                 @input="onInput" @focus="onFocus" @blur="onBlur" @keydown="onKeyDown"/>
           <span class="input__placeholder" v-if="!smallPlaceholder">{{ placeholder }}</span>
           <span class="input__small-placeholder" v-if="smallPlaceholder">{{ placeholder }}</span>
         </label>
@@ -18,7 +18,7 @@
 
       <div class="input__meta">
         <div v-if="hint" class="input__hint">
-          <button type="button" class="input__hint-button plain" v-if="hint">
+          <button type="button" class="input__hint-button plain" v-if="hint" tabindex="-1">
             <Icon name="question-bold"/>
           </button>
           <div class="input__hint-text">
@@ -27,6 +27,8 @@
           </div>
         </div>
       </div>
+
+      <!--      TODO: loading spinner-->
     </div>
 
     <div :class="['input__info', {'static': !!$slots.info}]">
@@ -60,18 +62,16 @@ export default {
     loading: Boolean,
     smallPlaceholder: Boolean,
     invalid: [Boolean, String],
-    required: {
-      type: [Boolean, String],
-    },
-  },
-  methods: {
-    emit(e) {
-      this.$emit('update:modelValue', e.target.value)
-    },
   },
   setup(props, { emit }) {
-    const { modelValue } = toRefs(props)
+    const {
+      modelValue,
+    } = toRefs(props)
     const focus = ref(false)
+
+    const onInput = (e) => {
+      emit('update:modelValue', e.target.value)
+    }
 
     const onFocus = () => {
       focus.value = true
@@ -84,12 +84,14 @@ export default {
     }
 
     const onKeyDown = (e) => {
-      // emit('keydown', e)
       if (!modelValue.value?.toString().length && e.key === 'Backspace') emit('removeOption', 'last')
     }
 
+    // TODO: add support for some types (e.g. allow only numbers in type='number')
+
     return {
       focus,
+      onInput,
       onFocus,
       onBlur,
       onKeyDown,
@@ -123,8 +125,8 @@ export default {
     align-items center
     flex-wrap wrap
 
-  &:focus-within
   .focus &
+  &.focus
     box-shadow inset 0 0 0 2px accent
 
     .invalid&
@@ -135,6 +137,9 @@ export default {
 
   &.invalid &__small-placeholder
     color error
+
+  &.disabled
+    opacity .65
 
   &__label
     width 100%

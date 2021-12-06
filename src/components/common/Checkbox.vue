@@ -1,7 +1,7 @@
 <template>
   <label class="input__wrapper checkbox">
     <input type="checkbox" :name="name" :checked="displayValue" class="checkbox__input"
-           @change="onChange">
+           @change="onChange" :disabled="disabled">
     <span class="checkbox__facade">
       <span class="checkbox__ripple" ref="rippleMask">
         <span class="checkbox__ripple-inner" :style="rippleStyle" ref="ripple"/>
@@ -95,11 +95,14 @@ export default {
   &__input
     position absolute
     left -9999px
-    visibility hidden
 
   &__facade
     position relative
     margin-top 1px
+
+  &__input:disabled + &__facade
+    pointer-events none
+    opacity .65
 
   &__check
     display block

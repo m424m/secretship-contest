@@ -1,12 +1,14 @@
 <template>
   <div class="textarea__wrapper input__wrapper">
-    <div :class="['textarea', {invalid}]">
+    <div :class="['textarea', {focus, invalid, disabled}]">
     <textarea class="textarea__field" :name="name" :placeholder="placeholder" :value="modelValue"
-              @input="onInput" :rows="rows"/>
+              :rows="rows" :disabled="disabled"
+              @input="onInput" @focus="onFocus" @blur="onBlur"
+    />
 
       <div class="textarea__meta">
         <div v-if="hint" class="textarea__hint">
-          <button type="button" class="textarea__hint-button plain" v-if="hint">
+          <button type="button" class="textarea__hint-button plain" v-if="hint" tabindex="-1">
             <Icon name="question-bold"/>
           </button>
           <div class="textarea__hint-text">
@@ -28,6 +30,7 @@
 </template>
 
 <script>
+import { ref } from 'vue'
 import Icon from './Icon.vue'
 
 export default {
@@ -40,16 +43,30 @@ export default {
     hint: String,
     rows: [Number, String],
     invalid: [Boolean, String],
+    disabled: Boolean,
   },
   setup(props, { emit }) {
+    const focus = ref(false)
+
     const onInput = (e) => {
       emit('update:modelValue', e.target.value)
       e.target.style.height = 'auto'
       e.target.style.height = `${e.target.scrollHeight}px`
     }
 
+    const onFocus = () => {
+      focus.value = true
+    }
+
+    const onBlur = () => {
+      focus.value = false
+    }
+
     return {
       onInput,
+      onFocus,
+      onBlur,
+      focus,
     }
   },
 }
@@ -70,7 +87,7 @@ export default {
   cursor unquote('text')
   flex-wrap wrap
 
-  &:focus-within
+  .focus &
   &.focus
     box-shadow inset 0 0 0 2px accent
 
@@ -79,6 +96,9 @@ export default {
 
   &.invalid
     box-shadow inset 0 0 0 1px error
+
+  &.disabled
+    opacity .65
 
   &__field
     background none
