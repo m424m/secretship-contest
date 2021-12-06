@@ -1,7 +1,7 @@
 <template>
   <nav class="nav">
     <router-link to="/" class="nav__app-name">
-      <Icon name="secretship"/>
+      <Secretship/>
       <span>Secretship App</span>
     </router-link>
 
@@ -10,7 +10,7 @@
         <template #toggle>
           <div class="nav__user-name">
             {{ user.telegram.first_name }} {{ user.telegram.last_name }}
-            <Icon name="chevron-down"/>
+            <ChevronDown/>
             <div class="nav__user-avatar">
               <img
                 :src="user.telegram.photo_url" alt="" v-if="user.telegram.photo_url">
@@ -23,19 +23,19 @@
           <ul>
             <li>
               <router-link to="/account/edit">
-                <Icon name="edit"/>
+                <Edit/>
                 <span>Edit Account Info</span>
               </router-link>
             </li>
             <li>
               <router-link to="/help">
-                <Icon name="question-circle"/>
+                <QuestionCircle/>
                 <span>Help</span>
               </router-link>
             </li>
             <li @click="logOut">
               <a>
-                <Icon name="log-out"/>
+                <LogOut/>
                 <span>Log out</span>
               </a>
             </li>
@@ -47,15 +47,23 @@
 </template>
 
 <script>
-import Icon from '@/components/common/Icon.vue'
 import Dropdown from '@/components/common/Dropdown.vue'
+import Secretship from '@/assets/icons/secretship.svg'
+import ChevronDown from '@/assets/icons/chevron-down.svg'
+import Edit from '@/assets/icons/edit.svg'
+import QuestionCircle from '@/assets/icons/question-circle.svg'
+import LogOut from '@/assets/icons/log-out.svg'
 import { getUser, logOut } from '../../api'
 
 export default {
   name: 'Nav',
   components: {
     Dropdown,
-    Icon,
+    Secretship,
+    ChevronDown,
+    Edit,
+    QuestionCircle,
+    LogOut,
   },
   setup() {
     const user = getUser()
@@ -69,7 +77,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@require '~@/styles/vars.styl'
+@require '../../styles/vars.styl'
 
 .nav
   padding 14px 15px

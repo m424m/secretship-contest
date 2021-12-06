@@ -14,8 +14,8 @@
         </div>
 
         <div class="modal__buttons" v-if="confirm">
-          <button @click="answer(false)">Cancel</button>
-          <button @click="answer(true)">Leave</button>
+          <button @click="answer(false)">{{ no }}</button>
+          <button @click="answer(true)">{{ yes }}</button>
         </div>
         <div class="modal__buttons" v-else>
           <slot name="buttons">
@@ -39,6 +39,14 @@ export default {
     small: Boolean,
     confirm: Boolean,
     open: Boolean,
+    yes: {
+      type: String,
+      default: 'Leave',
+    },
+    no: {
+      type: String,
+      default: 'Cancel',
+    },
   },
   setup(props) {
     const { open } = toRefs(props)
@@ -103,7 +111,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import "~@/styles/vars.styl"
+@import "../../styles/vars.styl"
 
 .modal
   position fixed

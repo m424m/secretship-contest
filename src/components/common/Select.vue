@@ -52,9 +52,7 @@
 </template>
 
 <script>
-import {
-  computed, ref, toRefs, watch,
-} from 'vue'
+import { computed, ref, toRefs } from 'vue'
 import TextInput from './TextInput.vue'
 import SelectItem from './SelectItem.vue'
 
@@ -139,22 +137,21 @@ export default {
     })
 
     const navigateOptions = (e) => {
+      if (!optionsEl.value?.children.length) return
       if (e.key === 'ArrowDown') {
         if (focusedOption.value < displayOptions.value.length - 1) focusedOption.value += 1
-        optionsEl.value.children[focusedOption.value].focus()
-        field.value.focus()
       } else if (e.key === 'ArrowUp') {
         if (focusedOption.value > 0) focusedOption.value -= 1
-        optionsEl.value.children[focusedOption.value].focus()
-        field.value.focus()
       } else if (e.key === 'Enter') {
+        focusedOption.value = 0
+      }
+      optionsEl.value.children[focusedOption.value].focus()
+      field.value.focus()
+
+      if (e.key === 'Enter') {
         selectOption(displayOptions.value[focusedOption.value])
       }
     }
-
-    watch(() => search.value, () => {
-      focusedOption.value = 0
-    })
 
     const fallbackValue = computed(() => {
       if (displayKey.value) return modelValue.value.map((i) => i[displayKey])
@@ -180,7 +177,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import "~@/styles/vars.styl"
+@import "../../styles/vars.styl"
 
 .select
   position relative

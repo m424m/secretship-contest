@@ -9,7 +9,7 @@
       <div class="textarea__meta">
         <div v-if="hint" class="textarea__hint">
           <button type="button" class="textarea__hint-button plain" v-if="hint" tabindex="-1">
-            <Icon name="question-bold"/>
+            <QuestionBold/>
           </button>
           <div class="textarea__hint-text">
             <div class="textarea__hint-bubble"/>
@@ -31,11 +31,11 @@
 
 <script>
 import { ref } from 'vue'
-import Icon from './Icon.vue'
+import QuestionBold from '@/assets/icons/question-bold.svg'
 
 export default {
   name: 'Textarea',
-  components: { Icon },
+  components: { QuestionBold },
   props: {
     modelValue: String,
     placeholder: String,
@@ -73,7 +73,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import "~@/styles/vars.styl"
+@import "../../styles/vars.styl"
 
 .textarea
   width 100%

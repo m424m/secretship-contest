@@ -11,7 +11,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import "~@/styles/vars.styl"
+@import "../../styles/vars.styl"
 
 .tabs
   margin-bottom 30px

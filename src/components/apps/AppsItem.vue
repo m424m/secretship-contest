@@ -3,7 +3,7 @@
     <div class="app__row">
       <div class="app__name">{{ app.name }}</div>
       <div class="app__balance">
-        <span class="app__balance-ton">{{ app.balance }} <Icon name="ton"/></span>
+        <span class="app__balance-ton">{{ app.balance }} <Ton/></span>
         <span class="app__balance-usd">${{ app.balance * 3 }}</span>
       </div>
     </div>
@@ -15,11 +15,11 @@
 
 <script>
 import dayjs from 'dayjs'
-import Icon from '../common/Icon.vue'
+import Ton from '@/assets/icons/ton.svg'
 
 export default {
   name: 'AppsItem',
-  components: { Icon },
+  components: { Ton },
   props: {
     app: {
       required: true,
@@ -37,7 +37,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '~@/styles/vars.styl'
+@import '../../styles/vars.styl'
 
 .app
   display flex

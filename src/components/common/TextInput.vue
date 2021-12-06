@@ -17,18 +17,22 @@
       </div>
 
       <div class="input__meta">
-        <div v-if="hint" class="input__hint">
-          <button type="button" class="input__hint-button plain" v-if="hint" tabindex="-1">
-            <Icon name="question-bold"/>
-          </button>
-          <div class="input__hint-text">
-            <div class="input__hint-bubble"/>
-            {{ hint }}
-          </div>
-        </div>
-      </div>
+        <transition name="fade">
+          <svg class="input__loading" viewport="0 0 44 44" v-if="loading">
+            <circle/>
+          </svg>
 
-      <!--      TODO: loading spinner-->
+          <div v-else-if="hint && !loading" class="input__hint">
+            <button type="button" class="input__hint-button plain" v-if="hint" tabindex="-1">
+              <QuestionBold/>
+            </button>
+            <div class="input__hint-text">
+              <div class="input__hint-bubble"/>
+              {{ hint }}
+            </div>
+          </div>
+        </transition>
+      </div>
     </div>
 
     <div :class="['input__info', {'static': !!$slots.info}]">
@@ -43,11 +47,11 @@
 
 <script>
 import { ref, toRefs } from 'vue'
-import Icon from './Icon.vue'
+import QuestionBold from '@/assets/icons/question-bold.svg'
 
 export default {
   name: 'TextInput',
-  components: { Icon },
+  components: { QuestionBold },
   props: {
     modelValue: [String, Number],
     placeholder: String,
@@ -93,6 +97,7 @@ export default {
     }
 
     // TODO: add support for some types (e.g. allow only numbers in type='number')
+    // TODO: add search icon
 
     return {
       isFocused,
@@ -108,7 +113,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '~@/styles/vars.styl'
+@import '../../styles/vars.styl'
 
 .input
   width 100%
@@ -279,9 +284,10 @@ export default {
   &__meta
     padding 5px
     align-self flex-start
+    position relative
 
     &:empty
-      display none
+      padding 0
 
   &__hint
     padding 10px
@@ -364,4 +370,39 @@ export default {
     &-invalid
       font-weight 500
       color error
+
+  &__loading
+    display block
+    position absolute
+    width 44px
+    height 44px
+    top 2px
+    right 2px
+
+    circle
+      stroke #c0c4c7
+      stroke-width 2px
+      stroke-linecap round
+      fill transparent
+      stroke-dashoffset 50px
+      stroke-dasharray 51px
+      transform-origin center
+      animation loading linear 2s infinite
+      transition stroke-width .2s ease
+      cx 50%
+      cy 50%
+      r 8px
+
+@keyframes loading
+  0%
+    stroke-dasharray 51px
+    transform rotateZ(0)
+
+  50%
+    stroke-dasharray 99px
+    transform rotateZ(240deg)
+
+  100%
+    stroke-dasharray 51px
+    transform rotateZ(720deg)
 </style>

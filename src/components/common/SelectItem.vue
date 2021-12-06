@@ -4,17 +4,17 @@
     <slot/>
     <button type="button" class="select-item__remove plain"
             @click.prevent.stop="$emit('remove')" tabindex="-1">
-      <Icon name="x"/>
+      <X/>
     </button>
   </div>
 </template>
 
 <script>
-import Icon from './Icon.vue'
+import X from '@/assets/icons/x.svg'
 
 export default {
   name: 'SelectItem',
-  components: { Icon },
+  components: { X },
   props: {
     image: String,
   },
@@ -22,7 +22,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import "~@/styles/vars.styl"
+@import "../../styles/vars.styl"
 
 .select-item
   display inline-flex

@@ -3,7 +3,7 @@
     <section>
       <h4>Current app balance</h4>
       <div class="wallet__balance">
-        <span class="wallet__balance-ton">{{ app.balance }} <Icon name="ton"/></span>
+        <span class="wallet__balance-ton">{{ app.balance }} <Ton/></span>
         <span class="wallet__balance-usd">(${{ app.balance * 3 }})</span>
       </div>
       <br>
@@ -17,7 +17,7 @@
     <section>
       <h4>Transaction history</h4>
 
-      <table>
+      <table v-if="transactions.length">
         <thead>
         <tr>
           <th>Date</th>
@@ -29,17 +29,19 @@
         <tr v-for="transaction in transactions" :key="transaction.id">
           <td class="date">{{ formatDate(transaction.timestamp) }}</td>
           <td class="from-to">
-            <Icon name="arrow-up" v-if="transaction.to"/>
-            <Icon name="arrow-down" v-else-if="transaction.from"/>
+            <ArrowUp v-if="transaction.to"/>
+            <ArrowDown name="arrow-down" v-else-if="transaction.from"/>
             <a href="#">{{ (transaction.to || transaction.from).name }}</a>
           </td>
           <td class="amount">
             {{ transaction.amount }}
-            <Icon name="ton"/>
+            <Ton/>
           </td>
         </tr>
         </tbody>
       </table>
+
+      <p class="no-transactions" v-else>No transactions</p>
     </section>
   </div>
 </template>
@@ -47,13 +49,17 @@
 <script>
 import { toRefs } from 'vue'
 import dayjs from 'dayjs'
-import Icon from '../../components/common/Icon.vue'
+import Ton from '@/assets/icons/ton.svg'
+import ArrowUp from '@/assets/icons/arrow-up.svg'
+import ArrowDown from '@/assets/icons/arrow-down.svg'
 import { addMoneyToApp, withdrawMoneyFromApp } from '../../api'
 
 export default {
   name: 'Wallet',
   components: {
-    Icon,
+    Ton,
+    ArrowUp,
+    ArrowDown,
   },
   props: {
     app: {
@@ -129,7 +135,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import "~@/styles/vars.styl"
+@import "../../styles/vars.styl"
 
 .wallet
   &__balance
@@ -155,4 +161,8 @@ export default {
 
       .icon-arrow-down
         color success
+
+  .no-transactions
+    text-align center
+    color text-secondary
 </style>

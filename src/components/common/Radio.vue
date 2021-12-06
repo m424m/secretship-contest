@@ -75,7 +75,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '~@/styles/vars.styl'
+@import '../../styles/vars.styl'
 
 .radio
   font-size 14px
