@@ -29,6 +29,7 @@
 
 <script>
 import {
+  onBeforeUnmount,
   onMounted, ref, toRefs, watch,
 } from 'vue'
 
@@ -71,6 +72,24 @@ export default {
         }
       })
     }
+
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        if (answer.value) {
+          answer.value(false)
+        } else {
+          hide()
+        }
+      } else if (e.key === 'Enter' && answer.value) answer.value(true)
+    }
+
+    onMounted(() => {
+      window.addEventListener('keydown', onKeyDown)
+    })
+
+    onBeforeUnmount(() => {
+      window.removeEventListener('keydown', onKeyDown)
+    })
 
     return {
       isOpen,
