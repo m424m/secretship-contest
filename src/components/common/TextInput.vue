@@ -1,7 +1,7 @@
 <template>
   <div class="input__wrapper">
     <div
-      :class="['input', {focus, disabled, 'small-placeholder': smallPlaceholder,
+      :class="['input', {focus: isFocused, disabled, 'small-placeholder': smallPlaceholder,
       'select-items': !!$slots.selectItems, 'has-content': (modelValue || !!$slots.selectItems),
        invalid, 'has-info': !!$slots.info}]">
       <span class="input__prefix" v-if="prefix">{{ prefix }}</span>
@@ -9,7 +9,7 @@
         <slot name="selectItems"/>
         <label :class="['input__label', {empty: !!modelValue}]">
           <input class="input__field" :type="type" :value="modelValue" :placeholder="placeholder"
-                 :disabled="disabled" :name="name"
+                 :disabled="disabled" :name="name" ref="field"
                  @input="onInput" @focus="onFocus" @blur="onBlur" @keydown="onKeyDown"/>
           <span class="input__placeholder" v-if="!smallPlaceholder">{{ placeholder }}</span>
           <span class="input__small-placeholder" v-if="smallPlaceholder">{{ placeholder }}</span>
@@ -67,19 +67,20 @@ export default {
     const {
       modelValue,
     } = toRefs(props)
-    const focus = ref(false)
+    const isFocused = ref(false)
+    const field = ref(null)
 
     const onInput = (e) => {
       emit('update:modelValue', e.target.value)
     }
 
     const onFocus = () => {
-      focus.value = true
+      isFocused.value = true
       emit('focus')
     }
 
     const onBlur = () => {
-      focus.value = false
+      isFocused.value = false
       emit('blur')
     }
 
@@ -87,14 +88,20 @@ export default {
       if (!modelValue.value?.toString().length && e.key === 'Backspace') emit('removeOption', 'last')
     }
 
+    const focus = () => {
+      field.value.focus()
+    }
+
     // TODO: add support for some types (e.g. allow only numbers in type='number')
 
     return {
-      focus,
+      isFocused,
+      field,
       onInput,
       onFocus,
       onBlur,
       onKeyDown,
+      focus,
     }
   },
 }

@@ -2,7 +2,8 @@
   <div :class="['select-item', {'with-image': !!image}]">
     <img :src="image" class="select-item__image" v-if="image" alt=""/>
     <slot/>
-    <button type="button" class="select-item__remove plain" @click.prevent.stop="$emit('remove')">
+    <button type="button" class="select-item__remove plain"
+            @click.prevent.stop="$emit('remove')" tabindex="-1">
       <Icon name="x"/>
     </button>
   </div>

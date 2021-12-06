@@ -2,13 +2,14 @@
   <div class="select" v-click-outside="closeDropdown">
     <select class="select__fallback" :name="name" :multiple="multiple" v-model="fallbackValue">
       <option v-for="(option, i) in options"
-           :key="`option-${i}`">
+              :key="`option-${i}`">
         {{ displayKey ? option[displayKey] : option }}
       </option>
     </select>
     <TextInput :placeholder="placeholder" v-model="search"
                :small-placeholder="!multiple"
                @focus="openDropdown"
+               @blur="closeDropdown"
                :class="[{focus: isOpen}]"
                :disabled="disabled"
                :hint="hint"
@@ -33,14 +34,16 @@
         </SelectItem>
       </template>
 
-      <template #info v-if="$slots.info"><slot name="info"/></template>
+      <template #info v-if="$slots.info">
+        <slot name="info"/>
+      </template>
     </TextInput>
 
     <transition name="fade">
-      <div class="select__options" v-if="isOpen && displayOptions.length">
-        <div class="select__option" v-for="(option, i) in displayOptions"
-             :key="`option-${i}`"
-             @click="selectOption(option)">
+      <div class="select__options" v-if="isOpen && displayOptions.length" ref="optionsEl">
+        <div :class="['select__option', {focused: focusedOption === i}]"
+             v-for="(option, i) in displayOptions" :key="`option-${i}`" tabindex="-1"
+             @click="selectOption(option)" @mouseover="focusedOption = i">
           {{ displayKey ? option[displayKey] : option }}
         </div>
       </div>
@@ -49,7 +52,9 @@
 </template>
 
 <script>
-import { computed, ref, toRefs } from 'vue'
+import {
+  computed, ref, toRefs, watch,
+} from 'vue'
 import TextInput from './TextInput.vue'
 import SelectItem from './SelectItem.vue'
 
@@ -80,9 +85,11 @@ export default {
     } = toRefs(props)
 
     const field = ref(null)
+    const optionsEl = ref(null)
 
     const search = ref('')
     const isOpen = ref(false)
+    const focusedOption = ref(0)
 
     const openDropdown = () => {
       isOpen.value = true
@@ -131,9 +138,23 @@ export default {
       return filtered
     })
 
-    const navigateOptions = () => {
-      // TODO: keyboard navigation
+    const navigateOptions = (e) => {
+      if (e.key === 'ArrowDown') {
+        if (focusedOption.value < displayOptions.value.length - 1) focusedOption.value += 1
+        optionsEl.value.children[focusedOption.value].focus()
+        field.value.focus()
+      } else if (e.key === 'ArrowUp') {
+        if (focusedOption.value > 0) focusedOption.value -= 1
+        optionsEl.value.children[focusedOption.value].focus()
+        field.value.focus()
+      } else if (e.key === 'Enter') {
+        selectOption(displayOptions.value[focusedOption.value])
+      }
     }
+
+    watch(() => search.value, () => {
+      focusedOption.value = 0
+    })
 
     const fallbackValue = computed(() => {
       if (displayKey.value) return modelValue.value.map((i) => i[displayKey])
@@ -151,6 +172,8 @@ export default {
       field,
       navigateOptions,
       fallbackValue,
+      focusedOption,
+      optionsEl,
     }
   },
 }
@@ -188,6 +211,6 @@ export default {
     padding 8px 15px
     cursor pointer
 
-    &:hover
+    &.focused
       background-color #f2f2f2
 </style>
