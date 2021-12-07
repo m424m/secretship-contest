@@ -10,11 +10,11 @@
 
           <section>
             <h4>{{ $t('account.personal_info') }}</h4>
-            <TextInput :placeholder="$t('account.first_name')" v-model="form.firstName"
+            <TextInput :placeholder="$t('account.first_name')" v-model.trim="form.firstName"
                        small-placeholder/>
-            <TextInput :placeholder="$t('account.last_name')" v-model="form.lastName"
+            <TextInput :placeholder="$t('account.last_name')" v-model.trim="form.lastName"
                        small-placeholder/>
-            <button type="submit">{{ $t('account.save') }}</button>
+            <button type="submit" :disabled="disabled">{{ $t('account.save') }}</button>
           </section>
         </form>
       </div>
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useStore } from 'vuex'
 import TextInput from '../../components/common/TextInput.vue'
 import AccountPreview from '../../components/account/AccountPreview.vue'
@@ -50,6 +50,8 @@ export default {
       dataChanged.value = true
     })
 
+    const disabled = computed(() => !form.value.firstName)
+
     confirmLeave(dataChanged, leaveModal)
 
     const saveData = () => {
@@ -57,13 +59,12 @@ export default {
       dataChanged.value = false
     }
 
-    // TODO: add some validation
-
     return {
       form,
       saveData,
       dataChanged,
       leaveModal,
+      disabled,
     }
   },
 }

@@ -28,6 +28,7 @@ en:
     personal_account: "Personal account"
     personal_info: "Personal Info"
     first_name: "First name"
+    last_name: "Last name"
     save: "Save Info"
   leave_confirmation:
     text: "You have unsaved changes, do you really want to leave this page?"
