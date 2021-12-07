@@ -7,7 +7,7 @@
         <span class="wallet__balance-usd">(${{ app.balance * 3 }})</span>
       </div>
       <br>
-      <div class="buttons">
+      <div class="button-group">
         <button class="small" @click="addFunds">{{$t('app.add_funds')}}</button>
         <button class="small" @click="withdraw">{{$t('app.withdraw')}}</button>
       </div>

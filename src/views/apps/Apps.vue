@@ -1,6 +1,6 @@
 <template>
   <main class="apps">
-    <section class="input-row">
+    <section class="input-group">
       <TextInput class="apps__search" :placeholder="$t('apps.search')" v-model="search">
         <template #prefix>
           <Search/>
