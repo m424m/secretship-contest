@@ -13,6 +13,7 @@
                :class="[{focus: isOpen}]"
                :disabled="disabled"
                :hint="hint"
+               :loading="loading"
                :invalid="invalid"
                ref="field"
                @removeOption="removeOption"
@@ -52,7 +53,9 @@
 </template>
 
 <script>
-import { computed, ref, toRefs } from 'vue'
+import {
+  computed, ref, toRefs, watch,
+} from 'vue'
 import TextInput from './TextInput.vue'
 import SelectItem from './SelectItem.vue'
 
@@ -73,6 +76,7 @@ export default {
     hint: String,
     invalid: [Boolean, String],
     options: Array,
+    loading: Boolean,
   },
   setup(props, { emit }) {
     const {
@@ -142,16 +146,20 @@ export default {
         if (focusedOption.value < displayOptions.value.length - 1) focusedOption.value += 1
       } else if (e.key === 'ArrowUp') {
         if (focusedOption.value > 0) focusedOption.value -= 1
-      } else if (e.key === 'Enter') {
-        focusedOption.value = 0
       }
       optionsEl.value.children[focusedOption.value].focus()
       field.value.focus()
 
       if (e.key === 'Enter') {
+        e.preventDefault()
         selectOption(displayOptions.value[focusedOption.value])
+        focusedOption.value = 0
       }
     }
+
+    watch(() => search.value, (val) => {
+      if (val) openDropdown()
+    })
 
     const fallbackValue = computed(() => {
       if (displayKey.value) return modelValue.value.map((i) => i[displayKey])

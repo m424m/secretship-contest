@@ -24,19 +24,19 @@
             <li>
               <router-link to="/account/edit">
                 <Edit/>
-                <span>Edit Account Info</span>
+                <span>{{ $t('nav.edit') }}</span>
               </router-link>
             </li>
             <li>
               <router-link to="/help">
                 <QuestionCircle/>
-                <span>Help</span>
+                <span>{{ $t('nav.help') }}</span>
               </router-link>
             </li>
             <li @click="logOut">
               <a>
                 <LogOut/>
-                <span>Log out</span>
+                <span>{{ $t('nav.log_out') }}</span>
               </a>
             </li>
           </ul>

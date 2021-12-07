@@ -4,15 +4,17 @@
       <div class="column">
         <form @submit.prevent="saveData">
           <section>
-            <h4>Account</h4>
+            <h4>{{ $t('account.account') }}</h4>
             <AccountPreview/>
           </section>
 
           <section>
-            <h4>Personal info</h4>
-            <TextInput placeholder="First name" v-model="form.firstName" small-placeholder/>
-            <TextInput placeholder="Last name" v-model="form.lastName" small-placeholder/>
-            <button type="submit">Save Info</button>
+            <h4>{{ $t('account.personal_info') }}</h4>
+            <TextInput :placeholder="$t('account.first_name')" v-model="form.firstName"
+                       small-placeholder/>
+            <TextInput :placeholder="$t('account.last_name')" v-model="form.lastName"
+                       small-placeholder/>
+            <button type="submit">{{ $t('account.save') }}</button>
           </section>
         </form>
       </div>
@@ -54,6 +56,8 @@ export default {
       setUserAccountInfo(form)
       dataChanged.value = false
     }
+
+    // TODO: add some validation
 
     return {
       form,

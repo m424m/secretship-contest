@@ -9,17 +9,17 @@
           </h3>
           <slot>
             <span
-              v-if="confirm">You have unsaved changes, do you really want to leave this page?</span>
+              v-if="confirm">{{ $t('leave_confirmation.text') }}</span>
           </slot>
         </div>
 
         <div class="modal__buttons" v-if="confirm">
-          <button @click="answer(false)">{{ no }}</button>
-          <button @click="answer(true)">{{ yes }}</button>
+          <button @click="answer(false)">{{ no || $t('common.cancel') }}</button>
+          <button @click="answer(true)">{{ yes || $t('leave_confirmation.leave') }}</button>
         </div>
         <div class="modal__buttons" v-else>
           <slot name="buttons">
-            <button @click="hide">Close</button>
+            <button @click="hide">{{ $t('common.close') }}</button>
           </slot>
         </div>
       </div>
@@ -39,14 +39,8 @@ export default {
     small: Boolean,
     confirm: Boolean,
     open: Boolean,
-    yes: {
-      type: String,
-      default: 'Leave',
-    },
-    no: {
-      type: String,
-      default: 'Cancel',
-    },
+    yes: String,
+    no: String,
   },
   setup(props) {
     const { open } = toRefs(props)

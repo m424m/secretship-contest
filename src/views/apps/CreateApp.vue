@@ -3,16 +3,16 @@
     <div class="columns">
       <div class="column">
         <form @submit.prevent="addApp">
-          <h4>Create new app</h4>
-          <TextInput placeholder="App name" v-model="app.name" name="name" small-placeholder
-                     :invalid="validations.name"/>
-          <TextInput placeholder="Link to the app" v-model="app.url" name="url"
+          <h4>{{ $t('app.create') }}</h4>
+          <TextInput :placeholder="$t('app.name')" v-model="app.name" name="name"
+                     small-placeholder :invalid="validations.name"/>
+          <TextInput :placeholder="$t('app.link')" v-model="app.url" name="url"
                      :invalid="validations.url"
                      small-placeholder/>
-          <Select placeholder="Category" name="category" v-model="app.category"
-                  :options="categories"
-                  hint="Select a category for your app." :invalid="validations.category"/>
-          <button type="submit" :disabled="disabled">Add App</button>
+          <Select :placeholder="$t('app.category')" name="category"
+                  v-model="app.category" :options="categories"
+                  :invalid="validations.category"/>
+          <button type="submit" :disabled="disabled">{{ $t('app.add') }}</button>
         </form>
       </div>
     </div>
@@ -58,28 +58,25 @@ export default {
     const validations = computed(() => {
       if (!validate.value) return {}
       return {
-        name: (() => {
-          if (!app.value.name) return 'App name is required'
-          return null
-        })(),
-        url: (() => {
-          if (!app.value.url) return 'App name is required'
-          return null
-        })(),
-        category: (() => {
-          if (!app.value.category) return 'Please select a category'
-          return null
-        })(),
+        name: [
+          !app.value.name ? 'App name is required' : null,
+        ].find((i) => i),
+        url: [
+          !app.value.url ? 'App URL is required' : null,
+        ].find((i) => i),
+        category: [
+          !app.value.category ? 'Please select a category' : null,
+        ].find((i) => i),
       }
     })
 
-    const disabled = computed(() => !(app.value.name.length
-      && app.value.url.length && app.value.category.length))
+    const disabled = computed(() => !(app.value.name
+      && app.value.url && app.value.category))
 
     const addApp = () => {
       validate.value = true
       if (!Object.values(validations.value)
-        .some((v) => !!v)) {
+        .some((v) => v)) {
         createApp(app.value)
           .then((result) => {
             router.push(`/apps/${result.id}`)
@@ -97,7 +94,3 @@ export default {
   },
 }
 </script>
-
-<style lang="stylus" scoped>
-
-</style>

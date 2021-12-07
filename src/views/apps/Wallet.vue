@@ -1,28 +1,28 @@
 <template>
   <div class="wallet">
     <section>
-      <h4>Current app balance</h4>
+      <h4>{{ $t('app.balance') }}</h4>
       <div class="wallet__balance">
         <span class="wallet__balance-ton">{{ app.balance }} <Ton/></span>
         <span class="wallet__balance-usd">(${{ app.balance * 3 }})</span>
       </div>
       <br>
       <div class="buttons">
-        <button class="small" @click="addFunds">Add funds</button>
-        <button class="small" @click="withdraw">Withdraw</button>
+        <button class="small" @click="addFunds">{{$t('app.add_funds')}}</button>
+        <button class="small" @click="withdraw">{{$t('app.withdraw')}}</button>
       </div>
     </section>
     <br>
 
     <section>
-      <h4>Transaction history</h4>
+      <h4>{{$t('app.transaction_history')}}</h4>
 
       <table v-if="transactions.length">
         <thead>
         <tr>
-          <th>Date</th>
-          <th>From / To</th>
-          <th>Amount</th>
+          <th>{{$t('common.date')}}</th>
+          <th>{{$t('app.from_to')}}</th>
+          <th>{{$t('app.amount')}}</th>
         </tr>
         </thead>
         <tbody>
@@ -41,7 +41,7 @@
         </tbody>
       </table>
 
-      <p class="no-transactions" v-else>No transactions</p>
+      <p class="no-transactions" v-else>{{$t('app.no_transactions')}}</p>
     </section>
   </div>
 </template>
@@ -81,7 +81,7 @@ export default {
     const transactions = [
       {
         id: 0,
-        timestamp: Date.now(),
+        timestamp: 1638868441899,
         from: {
           name: 'User 1',
           id: 12345,
@@ -91,7 +91,7 @@ export default {
       },
       {
         id: 1,
-        timestamp: Date.now() - 1000000,
+        timestamp: 1638867403786,
         from: null,
         to: {
           name: 'User 2',
@@ -101,7 +101,7 @@ export default {
       },
       {
         id: 2,
-        timestamp: Date.now() - 200000000,
+        timestamp: 1638668416900,
         from: {
           name: 'User 3',
           id: 9853,
@@ -111,7 +111,7 @@ export default {
       },
       {
         id: 3,
-        timestamp: Date.now() - 500000000,
+        timestamp: 1638368430968,
         from: null,
         to: {
           name: 'User 8',

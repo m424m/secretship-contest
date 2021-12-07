@@ -1,8 +1,8 @@
 <template>
   <main class="apps">
     <section class="input-row">
-      <TextInput placeholder="Search apps" v-model="search"/>
-      <router-link class="button" to="/apps/create">Create new app</router-link>
+      <TextInput :placeholder="$t('apps.search')" v-model="search"/>
+      <router-link class="button" to="/apps/create">{{ $t('apps.create') }}</router-link>
     </section>
 
     <section class="columns no-center" v-if="apps.length">
@@ -11,8 +11,7 @@
 
     <section class="columns" v-else>
       <div class="column no-apps">
-        <p>No apps.</p>
-        <button class="small">Create one!</button>
+        <p>{{ $t('apps.no_apps') }}</p>
       </div>
     </section>
   </main>
