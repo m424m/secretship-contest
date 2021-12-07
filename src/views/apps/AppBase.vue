@@ -28,7 +28,5 @@ export default {
 
     return { app }
   },
-
-  // TODO: show app name somewhere
 }
 </script>

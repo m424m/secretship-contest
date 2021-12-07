@@ -1,11 +1,13 @@
 <template>
   <nav class="nav">
-    <router-link to="/" class="nav__app-name">
-      <Secretship/>
-      <span>Secretship App</span>
+    <span class="nav__breadcrumbs">
+      <router-link to="/" class="nav__app-name">
+        <Secretship/>
+        <span>Secretship App</span>
+      </router-link>
 
-<!--      TODO: add current page title-->
-    </router-link>
+      <span class="nav__page" v-if="pageTitle">{{ pageTitle }}</span>
+    </span>
 
     <div class="nav__user" v-if="user">
       <Dropdown>
@@ -51,6 +53,8 @@
 </template>
 
 <script>
+import { ref, watch } from 'vue'
+import { useActiveMeta } from 'vue-meta'
 import Dropdown from '@/components/common/Dropdown.vue'
 import Secretship from '@/assets/icons/secretship.svg'
 import ChevronDown from '@/assets/icons/chevron-down.svg'
@@ -70,11 +74,20 @@ export default {
     LogOut,
   },
   setup() {
+    const metadata = useActiveMeta()
+
+    const pageTitle = ref(metadata.title)
+
+    watch(metadata, (val) => {
+      pageTitle.value = val.title
+    })
+
     const user = getUser()
 
     return {
       user,
       logOut,
+      pageTitle,
     }
   },
 }
@@ -93,6 +106,10 @@ export default {
   @media desktop
     padding 14px 0
 
+  &__breadcrumbs
+    display flex
+    align-items center
+
   &__app-name
     padding 10px 0
     font-weight 500
@@ -104,6 +121,18 @@ export default {
       display block
       height 19px
       color accent-dark
+
+    @media mobile
+      span
+        display none
+
+  &__page
+    font-weight 500
+
+    &::before
+      content '/'
+      margin 8px
+      color #c4c4c4
 
   &__user
     &-name

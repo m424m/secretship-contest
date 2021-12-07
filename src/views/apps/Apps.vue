@@ -22,7 +22,6 @@
 </template>
 
 <script>
-import { useMeta } from 'vue-meta'
 import { ref, computed } from 'vue'
 import { getApps } from '@/api'
 import TextInput from '../../components/common/TextInput.vue'
@@ -37,8 +36,6 @@ export default {
     Search,
   },
   setup() {
-    useMeta({ title: 'Apps' })
-
     const apps = ref(getApps()
       .sort((a, b) => b.created - a.created))
 
