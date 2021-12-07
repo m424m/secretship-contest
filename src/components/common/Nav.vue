@@ -1,6 +1,6 @@
 <template>
   <nav class="nav">
-    <span class="nav__breadcrumbs">
+    <span :class="['nav__breadcrumbs', {'no-page-title': !pageTitle}]">
       <router-link to="/" class="nav__app-name">
         <Secretship/>
         <span>{{ appName }}</span>
@@ -128,9 +128,9 @@ export default {
       height 19px
       color accent-dark
 
-    @media mobile
-      span
-        display none
+  @media mobile
+    &__breadcrumbs:not(.no-page-title) &__app-name span
+      display none
 
   &__page
     font-weight 500
