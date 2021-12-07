@@ -1,6 +1,9 @@
 <template>
-  <main>
-    <h1>Help</h1>
+  <main class="text-page">
+    <h1>Praesent mattis nec nisl id vehicula.</h1>
+    <blockquote>Sed iaculis, diam non placerat maximus, ex est varius arcu, eget mollis dui sapien
+      sit amet tortor. Mauris eget tempor sapien.
+    </blockquote>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc orci orci, finibus eget
       pharetra et, molestie eget massa. Curabitur id pulvinar augue. Nullam nec purus dui. Phasellus
       maximus sem finibus, blandit orci et, malesuada nibh. Suspendisse vehicula lorem ac tristique
@@ -15,6 +18,15 @@
     <p>Duis sagittis, nunc et aliquet aliquet, risus turpis tempus augue, a dictum
       elit libero a enim. Donec blandit vestibulum metus, eget ultricies mauris vehicula non. Donec
       a auctor ante. Ut suscipit lobortis eros a tincidunt.</p>
+
+    <hr>
+
+    <h2>Mauris laoreet volutpat tellus non mollis</h2>
+    <p>Quisque pretium orci eget risus bibendum, quis lobortis eros ornare. Pellentesque eu nibh
+      pellentesque lacus suscipit placerat ut ut enim. Curabitur sollicitudin sem felis, non maximus
+      orci bibendum a. Morbi scelerisque erat ut est convallis, non laoreet nunc molestie. Fusce nec
+      velit vel nisi lobortis cursus. Donec in nibh vel
+      risus viverra ultrices sit amet ac augue. </p>
   </main>
 </template>
 

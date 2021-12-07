@@ -1,5 +1,5 @@
 <template>
-  <main class="landing">
+  <main class="landing text-page">
     <section class="landing__intro">
       <img src="https://promote.telegram.org/img/ads_intro.svg" alt="Intro"/>
       <h1>Telegram Ad Platform</h1>
@@ -85,6 +85,10 @@ export default {
   &__intro
     text-align center
     margin-bottom 70px
+
+    img
+      padding 0
+      margin-top 0
 
   h3
     margin-top 32px

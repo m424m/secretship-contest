@@ -5,7 +5,7 @@
       <span>Secretship App</span>
     </router-link>
 
-    <div class="nav__user">
+    <div class="nav__user" v-if="user">
       <Dropdown>
         <template #toggle>
           <div class="nav__user-name">
@@ -43,6 +43,8 @@
         </template>
       </Dropdown>
     </div>
+
+    <router-link to="/" class="nav__login" v-else>Log in</router-link>
   </nav>
 </template>
 
@@ -137,4 +139,8 @@ export default {
 
       span
         user-select none
+
+  &__login
+    font-size 14px
+    font-weight 500
 </style>
