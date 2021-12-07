@@ -1,6 +1,6 @@
 <template>
   <metainfo>
-    <template #title="{ content }">{{ content? `${content} — Secretship` : 'Secretship Contest' }}
+    <template #title="{ content }">{{ content ? `${content} — ${appName}` : appName }}
     </template>
   </metainfo>
   <Nav v-if="!$route.meta.hideNav"/>
@@ -25,6 +25,12 @@ export default {
         amp: true,
       },
     })
+
+    const appName = process.env.VITE_APP_NAME
+
+    return {
+      appName,
+    }
   },
 }
 </script>

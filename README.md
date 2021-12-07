@@ -1,24 +1,32 @@
 # Secretship JS contest submission
 
+Demo: https://secretship-contest.vercel.app/
+
 ## Project setup
+
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Start dev server
+
 ```
-npm run serve
+npm run dev
 ```
 
-### Compiles and minifies for production
+### Build for production
+
 ```
 npm run build
 ```
 
-### Lints and fixes files
+
+The project runs on [Vue 3](https://v3.vuejs.org/) and [Vite](https://vitejs.dev).
+
+You will need to set two environment variables:
 ```
-npm run lint
+VITE_BOT_USERNAME=[Telegram bot username]
+VITE_APP_NAME=[App name]
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+All strings for i18n are located in `src/i18n.yaml`.

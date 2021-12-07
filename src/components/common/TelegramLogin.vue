@@ -3,7 +3,7 @@
     <telegram-login-temp
       class="login__iframe"
       mode="callback"
-      telegram-login="chtqqrwet_bot"
+      :telegram-login="botUsername"
       @loaded="onLoad"
       @callback="onLogin"/>
     <button class="login__facade" :disabled="!isLoaded">Log in</button>
@@ -23,6 +23,8 @@ export default {
     const router = useRouter()
     const isLoaded = ref(false)
 
+    const botUsername = process.env.VITE_BOT_USERNAME
+
     const onLoad = () => {
       isLoaded.value = true
     }
@@ -33,6 +35,7 @@ export default {
 
     return {
       isLoaded,
+      botUsername,
       onLoad,
       onLogin,
     }

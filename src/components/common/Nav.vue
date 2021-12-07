@@ -3,7 +3,7 @@
     <span class="nav__breadcrumbs">
       <router-link to="/" class="nav__app-name">
         <Secretship/>
-        <span>Secretship App</span>
+        <span>{{ appName }}</span>
       </router-link>
 
       <span class="nav__page" v-if="pageTitle">{{ pageTitle }}</span>
@@ -74,8 +74,9 @@ export default {
     LogOut,
   },
   setup() {
-    const metadata = useActiveMeta()
+    const appName = process.env.VITE_APP_NAME
 
+    const metadata = useActiveMeta()
     const pageTitle = ref(metadata.title)
 
     watch(metadata, (val) => {
@@ -85,9 +86,10 @@ export default {
     const user = getUser()
 
     return {
+      appName,
+      pageTitle,
       user,
       logOut,
-      pageTitle,
     }
   },
 }
@@ -102,6 +104,7 @@ export default {
   justify-content space-between
   align-items center
   border-bottom 1px solid #e6e6e6
+  gap 15px
 
   @media desktop
     padding 14px 0
@@ -109,6 +112,9 @@ export default {
   &__breadcrumbs
     display flex
     align-items center
+    overflow hidden
+    text-overflow ellipsis
+    white-space nowrap
 
   &__app-name
     padding 10px 0
@@ -128,6 +134,8 @@ export default {
 
   &__page
     font-weight 500
+    overflow h
+    text-overflow ellipsis
 
     &::before
       content '/'
