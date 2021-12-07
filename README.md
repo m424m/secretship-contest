@@ -33,5 +33,5 @@ All strings for i18n are located in `src/i18n.yaml`.
 
 All major elements (text input, select, radio buttons, checkboxes, modal windows, etc.) have been custom-made from
 scratch. However, the architecture of the project assumes that additional logic for components (for example, adding
-decimals to numeric input fields) is implemented separately outside the components when needed so as not to overload
+decimals to numeric input fields or form validation) is implemented separately outside the components when needed so as not to overload
 them.
