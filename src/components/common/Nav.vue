@@ -3,6 +3,8 @@
     <router-link to="/" class="nav__app-name">
       <Secretship/>
       <span>Secretship App</span>
+
+<!--      TODO: add current page title-->
     </router-link>
 
     <div class="nav__user" v-if="user">

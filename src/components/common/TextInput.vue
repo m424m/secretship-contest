@@ -4,7 +4,7 @@
       :class="['input', {focus: isFocused, disabled, 'small-placeholder': smallPlaceholder,
       'select-items': !!$slots.selectItems, 'has-content': (modelValue || !!$slots.selectItems),
        invalid, 'has-info': !!$slots.info}]">
-      <span class="input__prefix" v-if="prefix">{{ prefix }}</span>
+      <span class="input__prefix" v-if="$slots.prefix"><slot name="prefix"/></span>
       <div class="input__main">
         <slot name="selectItems"/>
         <label :class="['input__label', {empty: !!modelValue}]">
@@ -61,7 +61,6 @@ export default {
     },
     disabled: Boolean,
     name: String,
-    prefix: String,
     hint: String,
     loading: Boolean,
     smallPlaceholder: Boolean,
@@ -95,9 +94,6 @@ export default {
     const focus = () => {
       field.value.focus()
     }
-
-    // TODO: add support for some types (e.g. allow only numbers in type='number')
-    // TODO: add search icon
 
     return {
       isFocused,
@@ -214,6 +210,7 @@ export default {
     padding-right 0
     transition opacity .2s ease
     align-self flex-start
+    cursor default
 
     .small-placeholder:not(:focus-within) &
       opacity 0

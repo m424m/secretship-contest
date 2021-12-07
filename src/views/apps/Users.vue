@@ -7,7 +7,3 @@ export default {
   name: 'Users',
 }
 </script>
-
-<style lang="less" scoped>
-
-</style>

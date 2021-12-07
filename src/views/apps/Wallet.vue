@@ -29,8 +29,8 @@
         <tr v-for="transaction in transactions" :key="transaction.id">
           <td class="date">{{ formatDate(transaction.timestamp) }}</td>
           <td class="from-to">
-            <ArrowUp v-if="transaction.to"/>
-            <ArrowDown name="arrow-down" v-else-if="transaction.from"/>
+            <ArrowUp class="from-to__to" v-if="transaction.to"/>
+            <ArrowDown class="from-to__from" name="arrow-down" v-else-if="transaction.from"/>
             <a href="#">{{ (transaction.to || transaction.from).name }}</a>
           </td>
           <td class="amount">
@@ -156,10 +156,10 @@ export default {
       svg
         margin-right 8px
 
-      .icon-arrow-up
-        color accent-dark
+      &__to
+        color error
 
-      .icon-arrow-down
+      &__from
         color success
 
   .no-transactions

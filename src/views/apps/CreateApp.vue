@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { useMeta } from 'vue-meta'
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import TextInput from '../../components/common/TextInput.vue'
@@ -33,6 +34,8 @@ export default {
     TextInput,
   },
   setup() {
+    useMeta({ title: 'Create App' })
+
     const router = useRouter()
 
     const app = ref({

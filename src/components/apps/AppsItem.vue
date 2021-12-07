@@ -60,6 +60,7 @@ export default {
 
   &__name
     font-weight 700
+    -webkit-font-smoothing antialiased
 
   &__balance
     display flex

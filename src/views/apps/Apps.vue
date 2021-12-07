@@ -1,7 +1,11 @@
 <template>
   <main class="apps">
     <section class="input-row">
-      <TextInput :placeholder="$t('apps.search')" v-model="search"/>
+      <TextInput class="apps__search" :placeholder="$t('apps.search')" v-model="search">
+        <template #prefix>
+          <Search/>
+        </template>
+      </TextInput>
       <router-link class="button" to="/apps/create">{{ $t('apps.create') }}</router-link>
     </section>
 
@@ -18,20 +22,25 @@
 </template>
 
 <script>
-import { useStore } from 'vuex'
+import { useMeta } from 'vue-meta'
 import { ref, computed } from 'vue'
+import { getApps } from '@/api'
 import TextInput from '../../components/common/TextInput.vue'
 import AppsItem from '../../components/apps/AppsItem.vue'
+import Search from '@/assets/icons/search.svg'
 
 export default {
   name: 'Apps',
   components: {
     AppsItem,
     TextInput,
+    Search,
   },
   setup() {
-    const store = useStore()
-    const apps = ref([...store.getters.apps])
+    useMeta({ title: 'Apps' })
+
+    const apps = ref(getApps()
+      .sort((a, b) => b.created - a.created))
 
     const search = ref('')
 
@@ -54,6 +63,13 @@ export default {
 
 <style lang="stylus" scoped>
 @import "../../styles/vars.styl"
+
+.apps__search
+  svg
+    display block
+    color #a8a8a8
+    width 17px
+    height 17px
 
 .no-apps
   color text-secondary

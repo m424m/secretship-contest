@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import { useMeta } from 'vue-meta'
 import { computed, ref, watch } from 'vue'
 import { useStore } from 'vuex'
 import TextInput from '../../components/common/TextInput.vue'
@@ -41,6 +42,8 @@ export default {
     TextInput,
   },
   setup() {
+    useMeta({ title: 'Edit Account' })
+
     const store = useStore()
     const form = ref({ ...store.getters.user.account })
     const dataChanged = ref(false)

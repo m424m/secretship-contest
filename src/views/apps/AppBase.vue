@@ -1,9 +1,9 @@
 <template>
   <main>
     <Tabs>
-      <router-link :to="{ name: 'AppWallet' }">Wallet</router-link>
-      <router-link :to="{ name: 'AppUsers' }">Users</router-link>
-      <router-link :to="{ name: 'AppSettings' }">Settings</router-link>
+      <router-link :to="{ name: 'AppWallet' }">{{ $t('app.wallet') }}</router-link>
+      <router-link :to="{ name: 'AppUsers' }">{{ $t('app.users') }}</router-link>
+      <router-link :to="{ name: 'AppSettings' }">{{ $t('app.settings') }}</router-link>
     </Tabs>
 
     <router-view :app="app"/>
@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import { useMeta } from 'vue-meta'
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import Tabs from '@/components/common/Tabs.vue'
@@ -23,11 +24,11 @@ export default {
     const route = useRoute()
     const app = ref(getApp(parseInt(route.params.id, 10)))
 
+    useMeta({ title: app.value.name })
+
     return { app }
   },
+
+  // TODO: show app name somewhere
 }
 </script>
-
-<style lang="less" scoped>
-
-</style>

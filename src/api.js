@@ -29,6 +29,10 @@ export function createApp(data) {
   })
 }
 
+export function getApps() {
+  return store.getters.apps
+}
+
 export function getApp(id) {
   return store.getters.app(id)
 }

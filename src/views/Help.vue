@@ -32,11 +32,12 @@
 
 <script>
 
+import { useMeta } from 'vue-meta'
+
 export default {
   name: 'Help',
+  setup() {
+    useMeta({ title: 'Help' })
+  },
 }
 </script>
-
-<style lang="stylus" scoped>
-
-</style>
