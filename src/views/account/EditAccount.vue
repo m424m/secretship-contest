@@ -26,6 +26,7 @@
 
 <script>
 import { useMeta } from 'vue-meta'
+import { useRouter } from 'vue-router'
 import { computed, ref, watch } from 'vue'
 import { useStore } from 'vuex'
 import TextInput from '../../components/common/TextInput.vue'
@@ -44,6 +45,7 @@ export default {
   setup() {
     useMeta({ title: 'Edit Account' })
 
+    const router = useRouter()
     const store = useStore()
     const form = ref({ ...store.getters.user.account })
     const dataChanged = ref(false)
@@ -59,6 +61,9 @@ export default {
 
     const saveData = () => {
       setUserAccountInfo(form)
+        .then(() => {
+          router.push('/')
+        })
       dataChanged.value = false
     }
 
