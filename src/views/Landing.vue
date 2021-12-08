@@ -68,13 +68,8 @@
   </main>
 </template>
 
-<script>
+<script setup>
 import TelegramLogin from '@/components/common/TelegramLogin.vue'
-
-export default {
-  name: 'Landing',
-  components: { TelegramLogin },
-}
 </script>
 
 <style lang="stylus" scoped>

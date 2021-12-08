@@ -27,81 +27,74 @@
   </teleport>
 </template>
 
-<script>
+<script setup>
 import {
-  onBeforeUnmount,
-  onMounted, ref, toRefs, watch,
+  onBeforeUnmount, onMounted, ref, toRefs, watch,
 } from 'vue'
 
-export default {
-  name: 'Modal',
-  props: {
-    small: Boolean,
-    confirm: Boolean,
-    open: Boolean,
-    yes: String,
-    no: String,
-  },
-  setup(props) {
-    const { open } = toRefs(props)
-    const isOpen = ref(false)
-    const answer = ref(null)
+const props = defineProps({
+  small: Boolean,
+  confirm: Boolean,
+  open: Boolean,
+  yes: String,
+  no: String,
+})
 
-    onMounted(() => {
-      isOpen.value = open.value
-    })
+const { open } = toRefs(props)
+const isOpen = ref(false)
+const answer = ref(null)
 
-    watch(() => open.value, (val) => {
-      isOpen.value = val
-    })
+onMounted(() => {
+  isOpen.value = open.value
+})
 
-    const show = () => {
-      isOpen.value = true
-    }
+watch(() => open.value, (val) => {
+  isOpen.value = val
+})
 
-    const hide = () => {
-      isOpen.value = false
-      if (answer.value) answer.value(false)
-    }
-
-    const ask = async () => {
-      show()
-      return new Promise((resolve) => {
-        answer.value = (val) => {
-          resolve(val)
-          answer.value = null
-          hide()
-        }
-      })
-    }
-
-    const onKeyDown = (e) => {
-      if (e.key === 'Escape') {
-        if (answer.value) {
-          answer.value(false)
-        } else {
-          hide()
-        }
-      } else if (e.key === 'Enter' && answer.value) answer.value(true)
-    }
-
-    onMounted(() => {
-      window.addEventListener('keydown', onKeyDown)
-    })
-
-    onBeforeUnmount(() => {
-      window.removeEventListener('keydown', onKeyDown)
-    })
-
-    return {
-      isOpen,
-      show,
-      hide,
-      ask,
-      answer,
-    }
-  },
+const show = () => {
+  isOpen.value = true
 }
+
+const hide = () => {
+  isOpen.value = false
+  if (answer.value) answer.value(false)
+}
+
+const ask = async () => {
+  show()
+  return new Promise((resolve) => {
+    answer.value = (val) => {
+      resolve(val)
+      answer.value = null
+      hide()
+    }
+  })
+}
+
+const onKeyDown = (e) => {
+  if (e.key === 'Escape') {
+    if (answer.value) {
+      answer.value(false)
+    } else {
+      hide()
+    }
+  } else if (e.key === 'Enter' && answer.value) answer.value(true)
+}
+
+onMounted(() => {
+  window.addEventListener('keydown', onKeyDown)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', onKeyDown)
+})
+
+defineExpose({
+  show,
+  hide,
+  ask,
+})
 </script>
 
 <style lang="stylus" scoped>

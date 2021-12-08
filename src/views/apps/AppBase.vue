@@ -10,23 +10,15 @@
   </main>
 </template>
 
-<script>
+<script setup>
 import { useMeta } from 'vue-meta'
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import Tabs from '@/components/common/Tabs.vue'
 import { getApp } from '@/api'
 
-export default {
-  name: 'AppBase',
-  components: { Tabs },
-  setup() {
-    const route = useRoute()
-    const app = ref(getApp(parseInt(route.params.id, 10)))
+const route = useRoute()
+const app = ref(getApp(parseInt(route.params.id, 10)))
 
-    useMeta({ title: app.value.name })
-
-    return { app }
-  },
-}
+useMeta({ title: app.value.name })
 </script>

@@ -45,67 +45,56 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref, toRefs } from 'vue'
 import QuestionBold from '@/assets/icons/question-bold.svg'
 
-export default {
-  name: 'TextInput',
-  components: { QuestionBold },
-  props: {
-    modelValue: [String, Number],
-    placeholder: String,
-    type: {
-      type: String,
-      default: 'text',
-    },
-    disabled: Boolean,
-    name: String,
-    hint: String,
-    loading: Boolean,
-    smallPlaceholder: Boolean,
-    invalid: [Boolean, String],
+const props = defineProps({
+  modelValue: [String, Number],
+  placeholder: String,
+  type: {
+    type: String,
+    default: 'text',
   },
-  setup(props, { emit }) {
-    const {
-      modelValue,
-    } = toRefs(props)
-    const isFocused = ref(false)
-    const field = ref(null)
+  disabled: Boolean,
+  name: String,
+  hint: String,
+  loading: Boolean,
+  smallPlaceholder: Boolean,
+  invalid: [Boolean, String],
+})
 
-    const onInput = (e) => {
-      emit('update:modelValue', e.target.value)
-    }
+const emit = defineEmits(['update:modelValue', 'focus', 'blur', 'removeOption'])
 
-    const onFocus = () => {
-      isFocused.value = true
-      emit('focus')
-    }
+const {
+  modelValue,
+} = toRefs(props)
+const isFocused = ref(false)
+const field = ref(null)
 
-    const onBlur = () => {
-      isFocused.value = false
-      emit('blur')
-    }
-
-    const onKeyDown = (e) => {
-      if (!modelValue.value?.toString().length && e.key === 'Backspace') emit('removeOption', 'last')
-    }
-
-    const focus = () => {
-      field.value.focus()
-    }
-
-    return {
-      isFocused,
-      field,
-      onInput,
-      onFocus,
-      onBlur,
-      onKeyDown,
-      focus,
-    }
-  },
+const onInput = (e) => {
+  emit('update:modelValue', e.target.value)
 }
+
+const onFocus = () => {
+  isFocused.value = true
+  emit('focus')
+}
+
+const onBlur = () => {
+  isFocused.value = false
+  emit('blur')
+}
+
+const onKeyDown = (e) => {
+  if (!modelValue.value?.toString().length && e.key === 'Backspace') emit('removeOption', 'last')
+}
+
+const focus = () => {
+  field.value.focus()
+}
+
+defineExpose({ focus })
 </script>
 
 <style lang="stylus" scoped>

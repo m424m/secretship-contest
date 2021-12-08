@@ -9,27 +9,17 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
-export default {
-  name: 'Dropdown',
-  setup() {
-    const isOpen = ref(false)
-    const close = () => {
-      isOpen.value = false
-    }
-
-    const route = useRoute()
-    watch(() => route.fullPath, close)
-
-    return {
-      isOpen,
-      close,
-    }
-  },
+const isOpen = ref(false)
+const close = () => {
+  isOpen.value = false
 }
+
+const route = useRoute()
+watch(() => route.fullPath, close)
 </script>
 
 <style lang="stylus" scoped>

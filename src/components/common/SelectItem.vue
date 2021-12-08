@@ -9,16 +9,12 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import X from '@/assets/icons/x.svg'
 
-export default {
-  name: 'SelectItem',
-  components: { X },
-  props: {
-    image: String,
-  },
-}
+const props = defineProps({
+  image: String,
+})
 </script>
 
 <style lang="stylus" scoped>

@@ -4,12 +4,6 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'Tabs',
-}
-</script>
-
 <style lang="stylus" scoped>
 @import "../../styles/vars.styl"
 

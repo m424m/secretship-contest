@@ -13,27 +13,18 @@
   </router-link>
 </template>
 
-<script>
+<script setup>
 import dayjs from 'dayjs'
 import Ton from '@/assets/icons/ton.svg'
 
-export default {
-  name: 'AppsItem',
-  components: { Ton },
-  props: {
-    app: {
-      required: true,
-    },
+const props = defineProps({
+  app: {
+    required: true,
   },
-  setup(props) {
-    const created = dayjs(props.app.created)
-      .format('MMM DD, YYYY')
+})
 
-    return {
-      created,
-    }
-  },
-}
+const created = dayjs(props.app.created)
+  .format('MMM DD, YYYY')
 </script>
 
 <style lang="stylus" scoped>

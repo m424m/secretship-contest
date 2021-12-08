@@ -15,62 +15,52 @@
   </label>
 </template>
 
-<script>
+<script setup>
 import { ref, toRefs } from 'vue'
 
-export default {
-  name: 'Radio',
-  props: {
-    modelValue: null,
-    value: null,
-    disabled: Boolean,
-    name: String,
-  },
-  setup(props, { emit }) {
-    const {
-      value,
-    } = toRefs(props)
-    const rippleStyle = ref({})
-    const rippleMask = ref(null)
+const props = defineProps({
+  modelValue: null,
+  value: null,
+  disabled: Boolean,
+  name: String,
+})
 
-    const onChange = () => {
-      emit('update:modelValue', value)
-    }
+const emit = defineEmits(['update:modelValue'])
 
-    const onMouseDown = (e) => {
-      const rect = rippleMask.value.getBoundingClientRect()
-      let clientX
-      let clientY
-      if (e.type === 'touchstart') {
-        clientX = e.targetTouches[0].clientX
-        clientY = e.targetTouches[0].clientY
-      } else {
-        clientX = e.clientX
-        clientY = e.clientY
-      }
-      const rippleX = (clientX - rect.left) - rippleMask.value.offsetWidth / 2
-      const rippleY = (clientY - rect.top) - rippleMask.value.offsetHeight / 2
-      rippleStyle.value.transition = 'none'
-      rippleStyle.value.transform = `translate3d(${rippleX}px, ${rippleY}px, 0) scale3d(0.2, 0.2, 1)`
-      rippleStyle.value.opacity = 1
-      setTimeout(() => {
-        rippleStyle.value.transform = `translate3d(${rippleX}px, ${rippleY}px, 0) scale3d(1, 1, 1)`
-        rippleStyle.value.transition = ''
-      }, 0)
-    }
+const {
+  value,
+} = toRefs(props)
+const rippleStyle = ref({})
+const rippleMask = ref(null)
 
-    const onMouseUp = () => {
-      rippleStyle.value.opacity = '0'
-    }
+const onChange = () => {
+  emit('update:modelValue', value)
+}
 
-    return {
-      rippleMask,
-      rippleStyle,
-      onChange,
-      onMouseDown,
-      onMouseUp,
-    }
-  },
+const onMouseDown = (e) => {
+  const rect = rippleMask.value.getBoundingClientRect()
+  let clientX
+  let clientY
+  if (e.type === 'touchstart') {
+    clientX = e.targetTouches[0].clientX
+    clientY = e.targetTouches[0].clientY
+  } else {
+    clientX = e.clientX
+    clientY = e.clientY
+  }
+  const rippleX = (clientX - rect.left) - rippleMask.value.offsetWidth / 2
+  const rippleY = (clientY - rect.top) - rippleMask.value.offsetHeight / 2
+  rippleStyle.value.transition = 'none'
+  rippleStyle.value.transform = `translate3d(${rippleX}px, ${rippleY}px, 0) scale3d(0.2, 0.2, 1)`
+  rippleStyle.value.opacity = 1
+  setTimeout(() => {
+    rippleStyle.value.transform = `translate3d(${rippleX}px, ${rippleY}px, 0) scale3d(1, 1, 1)`
+    rippleStyle.value.transition = ''
+  }, 0)
+}
+
+const onMouseUp = () => {
+  rippleStyle.value.opacity = '0'
 }
 </script>
 

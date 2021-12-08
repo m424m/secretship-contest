@@ -52,7 +52,7 @@
   </nav>
 </template>
 
-<script>
+<script setup>
 import { ref, watch } from 'vue'
 import { useActiveMeta } from 'vue-meta'
 import Dropdown from '@/components/common/Dropdown.vue'
@@ -61,38 +61,18 @@ import ChevronDown from '@/assets/icons/chevron-down.svg'
 import Edit from '@/assets/icons/edit.svg'
 import QuestionCircle from '@/assets/icons/question-circle.svg'
 import LogOut from '@/assets/icons/log-out.svg'
-import { getUser, logOut } from '../../api'
+import { getUser, logOut } from '@/api'
 
-export default {
-  name: 'Nav',
-  components: {
-    Dropdown,
-    Secretship,
-    ChevronDown,
-    Edit,
-    QuestionCircle,
-    LogOut,
-  },
-  setup() {
-    const appName = process.env.VITE_APP_NAME
+const appName = process.env.VITE_APP_NAME
 
-    const metadata = useActiveMeta()
-    const pageTitle = ref(metadata.title)
+const metadata = useActiveMeta()
+const pageTitle = ref(metadata.title)
 
-    watch(metadata, (val) => {
-      pageTitle.value = val.title
-    })
+watch(metadata, (val) => {
+  pageTitle.value = val.title
+})
 
-    const user = getUser()
-
-    return {
-      appName,
-      pageTitle,
-      user,
-      logOut,
-    }
-  },
-}
+const user = getUser()
 </script>
 
 <style lang="stylus" scoped>

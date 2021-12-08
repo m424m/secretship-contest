@@ -30,14 +30,8 @@
   </main>
 </template>
 
-<script>
-
+<script setup>
 import { useMeta } from 'vue-meta'
 
-export default {
-  name: 'Help',
-  setup() {
-    useMeta({ title: 'Help' })
-  },
-}
+useMeta({ title: 'Help' })
 </script>

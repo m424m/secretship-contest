@@ -1,6 +1,6 @@
 <template>
   <div class="textarea__wrapper input__wrapper">
-    <div :class="['textarea', {focus, invalid, disabled}]">
+    <div :class="['textarea', {focus: isFocused, invalid, disabled}]">
     <textarea class="textarea__field" :name="name" :placeholder="placeholder" :value="modelValue"
               :rows="rows" :disabled="disabled"
               @input="onInput" @focus="onFocus" @blur="onBlur"
@@ -29,46 +29,36 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue'
 import QuestionBold from '@/assets/icons/question-bold.svg'
 
-export default {
-  name: 'Textarea',
-  components: { QuestionBold },
-  props: {
-    modelValue: String,
-    placeholder: String,
-    name: String,
-    hint: String,
-    rows: [Number, String],
-    invalid: [Boolean, String],
-    disabled: Boolean,
-  },
-  setup(props, { emit }) {
-    const focus = ref(false)
+const props = defineProps({
+  modelValue: String,
+  placeholder: String,
+  name: String,
+  hint: String,
+  rows: [Number, String],
+  invalid: [Boolean, String],
+  disabled: Boolean,
+})
 
-    const onInput = (e) => {
-      emit('update:modelValue', e.target.value)
-      e.target.style.height = 'auto'
-      e.target.style.height = `${e.target.scrollHeight}px`
-    }
+const emit = defineEmits(['update:modelValue', 'focus', 'blur'])
 
-    const onFocus = () => {
-      focus.value = true
-    }
+const isFocused = ref(false)
 
-    const onBlur = () => {
-      focus.value = false
-    }
+const onInput = (e) => {
+  emit('update:modelValue', e.target.value)
+  e.target.style.height = 'auto'
+  e.target.style.height = `${e.target.scrollHeight}px`
+}
 
-    return {
-      onInput,
-      onFocus,
-      onBlur,
-      focus,
-    }
-  },
+const onFocus = () => {
+  isFocused.value = true
+}
+
+const onBlur = () => {
+  isFocused.value = false
 }
 </script>
 

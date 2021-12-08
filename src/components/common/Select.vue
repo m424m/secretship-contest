@@ -52,136 +52,115 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import {
   computed, ref, toRefs, watch,
 } from 'vue'
 import TextInput from './TextInput.vue'
 import SelectItem from './SelectItem.vue'
 
-export default {
-  name: 'Select',
-  components: {
-    SelectItem,
-    TextInput,
-  },
-  props: {
-    modelValue: [Array, String, Number],
-    displayKey: String,
-    imageKey: String,
-    placeholder: String,
-    multiple: Boolean,
-    disabled: Boolean,
-    name: String,
-    hint: String,
-    invalid: [Boolean, String],
-    options: Array,
-    loading: Boolean,
-  },
-  setup(props, { emit }) {
-    const {
-      modelValue,
-      displayKey,
-      multiple,
-      options,
-    } = toRefs(props)
+const props = defineProps({
+  modelValue: [Array, String, Number],
+  displayKey: String,
+  imageKey: String,
+  placeholder: String,
+  multiple: Boolean,
+  disabled: Boolean,
+  name: String,
+  hint: String,
+  invalid: [Boolean, String],
+  options: Array,
+  loading: Boolean,
+})
 
-    const field = ref(null)
-    const optionsEl = ref(null)
+const emit = defineEmits(['update:modelValue'])
 
-    const search = ref('')
-    const isOpen = ref(false)
-    const focusedOption = ref(0)
+const {
+  modelValue,
+  displayKey,
+  multiple,
+  options,
+} = toRefs(props)
 
-    const openDropdown = () => {
-      isOpen.value = true
-      field.value.$el.scrollIntoView()
-    }
-    const closeDropdown = () => {
-      isOpen.value = false
-    }
+const field = ref(null)
+const optionsEl = ref(null)
 
-    const selectOption = (option) => {
-      if (multiple.value) {
-        emit('update:modelValue', [...modelValue.value, option])
-      } else {
-        emit('update:modelValue', option)
-      }
-      search.value = ''
-      closeDropdown()
-    }
+const search = ref('')
+const isOpen = ref(false)
+const focusedOption = ref(0)
 
-    const removeOption = (index = 'last') => {
-      if (multiple.value) {
-        const filtered = [...modelValue.value]
-        filtered.splice(index === 'last' ? modelValue.value.length - 1 : index, 1)
-        emit('update:modelValue', filtered)
-      } else {
-        emit('update:modelValue', null)
-      }
-    }
-
-    const displayOptions = computed(() => {
-      let filtered = [...options.value]
-      filtered = filtered
-        // exclude selected options
-        .filter((option) => {
-          if (multiple.value) {
-            return !modelValue.value
-              .includes((displayKey.value ? option[displayKey.value] : option))
-          }
-          return true
-        })
-        // exclude options that do not match search query
-        .filter((option) => (displayKey.value ? option[displayKey.value] : option)
-          .toString()
-          .toLowerCase()
-          .includes(search.value.toLowerCase()))
-      return filtered
-    })
-
-    const navigateOptions = (e) => {
-      if (!optionsEl.value?.children.length) return
-      if (e.key === 'ArrowDown') {
-        if (focusedOption.value < displayOptions.value.length - 1) focusedOption.value += 1
-      } else if (e.key === 'ArrowUp') {
-        if (focusedOption.value > 0) focusedOption.value -= 1
-      }
-      optionsEl.value.children[focusedOption.value].focus()
-      field.value.focus()
-
-      if (e.key === 'Enter') {
-        e.preventDefault()
-        selectOption(displayOptions.value[focusedOption.value])
-        focusedOption.value = 0
-      }
-    }
-
-    watch(() => search.value, (val) => {
-      if (val) openDropdown()
-    })
-
-    const fallbackValue = computed(() => {
-      if (displayKey.value) return modelValue.value.map((i) => i[displayKey])
-      return modelValue.value
-    })
-
-    return {
-      search,
-      isOpen,
-      openDropdown,
-      closeDropdown,
-      selectOption,
-      removeOption,
-      displayOptions,
-      field,
-      navigateOptions,
-      fallbackValue,
-      focusedOption,
-      optionsEl,
-    }
-  },
+const openDropdown = () => {
+  isOpen.value = true
+  field.value.$el.scrollIntoView()
 }
+const closeDropdown = () => {
+  isOpen.value = false
+}
+
+const selectOption = (option) => {
+  if (multiple.value) {
+    emit('update:modelValue', [...modelValue.value, option])
+  } else {
+    emit('update:modelValue', option)
+  }
+  search.value = ''
+  closeDropdown()
+}
+
+const removeOption = (index = 'last') => {
+  if (multiple.value) {
+    const filtered = [...modelValue.value]
+    filtered.splice(index === 'last' ? modelValue.value.length - 1 : index, 1)
+    emit('update:modelValue', filtered)
+  } else {
+    emit('update:modelValue', null)
+  }
+}
+
+const displayOptions = computed(() => {
+  let filtered = [...options.value]
+  filtered = filtered
+    // exclude selected options
+    .filter((option) => {
+      if (multiple.value) {
+        return !modelValue.value
+          .includes((displayKey.value ? option[displayKey.value] : option))
+      }
+      return true
+    })
+    // exclude options that do not match search query
+    .filter((option) => (displayKey.value ? option[displayKey.value] : option)
+      .toString()
+      .toLowerCase()
+      .includes(search.value.toLowerCase()))
+  return filtered
+})
+
+const navigateOptions = (e) => {
+  if (!optionsEl.value?.children.length) return
+  if (e.key === 'ArrowDown') {
+    if (focusedOption.value < displayOptions.value.length - 1) focusedOption.value += 1
+  } else if (e.key === 'ArrowUp') {
+    if (focusedOption.value > 0) focusedOption.value -= 1
+  }
+  optionsEl.value.children[focusedOption.value].focus()
+  field.value.focus()
+
+  if (e.key === 'Enter') {
+    e.preventDefault()
+    selectOption(displayOptions.value[focusedOption.value])
+    focusedOption.value = 0
+  }
+}
+
+watch(() => search.value, (val) => {
+  if (val) openDropdown()
+})
+
+const fallbackValue = computed(() => {
+  if (displayKey.value) return modelValue.value.map((i) => i[displayKey])
+  return modelValue.value
+})
 </script>
 
 <style lang="stylus" scoped>

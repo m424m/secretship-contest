@@ -8,21 +8,21 @@
       </div>
       <br>
       <div class="button-group">
-        <button class="small" @click="addFunds">{{$t('app.add_funds')}}</button>
-        <button class="small" @click="withdraw">{{$t('app.withdraw')}}</button>
+        <button class="small" @click="addFunds">{{ $t('app.add_funds') }}</button>
+        <button class="small" @click="withdraw">{{ $t('app.withdraw') }}</button>
       </div>
     </section>
     <br>
 
     <section>
-      <h4>{{$t('app.transaction_history')}}</h4>
+      <h4>{{ $t('app.transaction_history') }}</h4>
 
       <table v-if="transactions.length">
         <thead>
         <tr>
-          <th>{{$t('common.date')}}</th>
-          <th>{{$t('app.from_to')}}</th>
-          <th>{{$t('app.amount')}}</th>
+          <th>{{ $t('common.date') }}</th>
+          <th>{{ $t('app.from_to') }}</th>
+          <th>{{ $t('app.amount') }}</th>
         </tr>
         </thead>
         <tbody>
@@ -41,97 +41,81 @@
         </tbody>
       </table>
 
-      <p class="no-transactions" v-else>{{$t('app.no_transactions')}}</p>
+      <p class="no-transactions" v-else>{{ $t('app.no_transactions') }}</p>
     </section>
   </div>
 </template>
 
-<script>
+<script setup>
 import { toRefs } from 'vue'
 import dayjs from 'dayjs'
 import Ton from '@/assets/icons/ton.svg'
 import ArrowUp from '@/assets/icons/arrow-up.svg'
 import ArrowDown from '@/assets/icons/arrow-down.svg'
-import { addMoneyToApp, withdrawMoneyFromApp } from '../../api'
+import { addMoneyToApp, withdrawMoneyFromApp } from '@/api'
 
-export default {
-  name: 'Wallet',
-  components: {
-    Ton,
-    ArrowUp,
-    ArrowDown,
+const props = defineProps({
+  app: {
+    required: true,
   },
-  props: {
-    app: {
-      required: true,
-    },
-  },
-  setup(props) {
-    const { app } = toRefs(props)
+})
 
-    const addFunds = () => {
-      addMoneyToApp(app.value.id, 100)
-    }
+const { app } = toRefs(props)
 
-    const withdraw = () => {
-      withdrawMoneyFromApp(app.value.id, 100)
-    }
-
-    // I have no idea what the format should be :(
-    const transactions = [
-      {
-        id: 0,
-        timestamp: 1638868441899,
-        from: {
-          name: 'User 1',
-          id: 12345,
-        },
-        to: null,
-        amount: 50,
-      },
-      {
-        id: 1,
-        timestamp: 1638867403786,
-        from: null,
-        to: {
-          name: 'User 2',
-          id: 54321,
-        },
-        amount: 100,
-      },
-      {
-        id: 2,
-        timestamp: 1638668416900,
-        from: {
-          name: 'User 3',
-          id: 9853,
-        },
-        to: 0,
-        amount: 150,
-      },
-      {
-        id: 3,
-        timestamp: 1638368430968,
-        from: null,
-        to: {
-          name: 'User 8',
-          id: 8888,
-        },
-        amount: 50,
-      },
-    ]
-
-    const formatDate = (date) => dayjs(date)
-      .format('MMM DD, YYYY HH:mm')
-
-    return {
-      addFunds,
-      withdraw,
-      transactions,
-      formatDate,
-    }
-  },
+const addFunds = () => {
+  addMoneyToApp(app.value.id, 100)
 }
+
+const withdraw = () => {
+  withdrawMoneyFromApp(app.value.id, 100)
+}
+
+// I have no idea what the format should be :(
+const transactions = [
+  {
+    id: 0,
+    timestamp: 1638868441899,
+    from: {
+      name: 'User 1',
+      id: 12345,
+    },
+    to: null,
+    amount: 50,
+  },
+  {
+    id: 1,
+    timestamp: 1638867403786,
+    from: null,
+    to: {
+      name: 'User 2',
+      id: 54321,
+    },
+    amount: 100,
+  },
+  {
+    id: 2,
+    timestamp: 1638668416900,
+    from: {
+      name: 'User 3',
+      id: 9853,
+    },
+    to: 0,
+    amount: 150,
+  },
+  {
+    id: 3,
+    timestamp: 1638368430968,
+    from: null,
+    to: {
+      name: 'User 8',
+      id: 8888,
+    },
+    amount: 50,
+  },
+]
+
+const formatDate = (date) => dayjs(date)
+  .format('MMM DD, YYYY HH:mm')
 </script>
 
 <style lang="stylus" scoped>

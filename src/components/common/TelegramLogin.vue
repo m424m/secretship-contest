@@ -10,36 +10,23 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { telegramLoginTemp } from 'vue3-telegram-login'
-import { setUserTelegramData } from '../../api'
+import { setUserTelegramData } from '@/api'
 
-export default {
-  name: 'TelegramLogin',
-  components: { telegramLoginTemp },
-  setup() {
-    const router = useRouter()
-    const isLoaded = ref(false)
+const router = useRouter()
+const isLoaded = ref(false)
 
-    const botUsername = process.env.VITE_BOT_USERNAME
+const botUsername = process.env.VITE_BOT_USERNAME
 
-    const onLoad = () => {
-      isLoaded.value = true
-    }
-    const onLogin = (result) => {
-      setUserTelegramData(result)
-      router.push('/apps')
-    }
-
-    return {
-      isLoaded,
-      botUsername,
-      onLoad,
-      onLogin,
-    }
-  },
+const onLoad = () => {
+  isLoaded.value = true
+}
+const onLogin = (result) => {
+  setUserTelegramData(result)
+  router.push('/apps')
 }
 </script>
 

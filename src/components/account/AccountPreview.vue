@@ -12,18 +12,10 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { getUser } from '@/api'
 
-export default {
-  name: 'AccountPreview',
-  setup() {
-    const user = getUser()
-    return {
-      user,
-    }
-  },
-}
+const user = getUser()
 </script>
 
 <style lang="stylus" scoped>

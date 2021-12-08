@@ -15,73 +15,62 @@
   </label>
 </template>
 
-<script>
+<script setup>
 import { computed, ref, toRefs } from 'vue'
 
-export default {
-  name: 'Checkbox',
-  props: {
-    modelValue: Boolean,
-    checked: {
-      type: Boolean,
-      default: undefined,
-    },
-    disabled: Boolean,
-    name: String,
+const props = defineProps({
+  modelValue: Boolean,
+  checked: {
+    type: Boolean,
+    default: undefined,
   },
-  setup(props, { emit }) {
-    const {
-      modelValue,
-      checked,
-    } = toRefs(props)
-    const rippleStyle = ref({})
-    const rippleMask = ref(null)
+  disabled: Boolean,
+  name: String,
+})
 
-    const onChange = (e) => {
-      if (checked.value === undefined) emit('update:modelValue', e.target.checked)
-    }
+const emit = defineEmits(['update:modelValue'])
 
-    const onMouseDown = (e) => {
-      const rect = rippleMask.value.getBoundingClientRect()
-      let clientX
-      let clientY
-      if (e.type === 'touchstart') {
-        clientX = e.targetTouches[0].clientX
-        clientY = e.targetTouches[0].clientY
-      } else {
-        clientX = e.clientX
-        clientY = e.clientY
-      }
-      const rippleX = (clientX - rect.left) - rippleMask.value.offsetWidth / 2
-      const rippleY = (clientY - rect.top) - rippleMask.value.offsetHeight / 2
-      rippleStyle.value.transition = 'none'
-      rippleStyle.value.transform = `translate3d(${rippleX}px, ${rippleY}px, 0) scale3d(0.2, 0.2, 1)`
-      rippleStyle.value.opacity = 1
-      setTimeout(() => {
-        rippleStyle.value.transform = `translate3d(${rippleX}px, ${rippleY}px, 0) scale3d(1, 1, 1)`
-        rippleStyle.value.transition = ''
-      }, 0)
-    }
+const {
+  modelValue,
+  checked,
+} = toRefs(props)
+const rippleStyle = ref({})
+const rippleMask = ref(null)
 
-    const onMouseUp = () => {
-      rippleStyle.value.opacity = '0'
-    }
-
-    const displayValue = computed(() => {
-      if (checked.value === undefined) return modelValue.value
-      return checked.value
-    })
-
-    return {
-      rippleMask,
-      rippleStyle,
-      onChange,
-      onMouseDown,
-      onMouseUp,
-      displayValue,
-    }
-  },
+const onChange = (e) => {
+  if (checked.value === undefined) emit('update:modelValue', e.target.checked)
 }
+
+const onMouseDown = (e) => {
+  const rect = rippleMask.value.getBoundingClientRect()
+  let clientX
+  let clientY
+  if (e.type === 'touchstart') {
+    clientX = e.targetTouches[0].clientX
+    clientY = e.targetTouches[0].clientY
+  } else {
+    clientX = e.clientX
+    clientY = e.clientY
+  }
+  const rippleX = (clientX - rect.left) - rippleMask.value.offsetWidth / 2
+  const rippleY = (clientY - rect.top) - rippleMask.value.offsetHeight / 2
+  rippleStyle.value.transition = 'none'
+  rippleStyle.value.transform = `translate3d(${rippleX}px, ${rippleY}px, 0) scale3d(0.2, 0.2, 1)`
+  rippleStyle.value.opacity = 1
+  setTimeout(() => {
+    rippleStyle.value.transform = `translate3d(${rippleX}px, ${rippleY}px, 0) scale3d(1, 1, 1)`
+    rippleStyle.value.transition = ''
+  }, 0)
+}
+
+const onMouseUp = () => {
+  rippleStyle.value.opacity = '0'
+}
+
+const displayValue = computed(() => {
+  if (checked.value === undefined) return modelValue.value
+  return checked.value
+})
 </script>
 
 <style lang="stylus" scoped>

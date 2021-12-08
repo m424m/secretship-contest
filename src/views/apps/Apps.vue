@@ -21,41 +21,25 @@
   </main>
 </template>
 
-<script>
+<script setup>
 import { ref, computed } from 'vue'
 import { getApps } from '@/api'
 import TextInput from '../../components/common/TextInput.vue'
 import AppsItem from '../../components/apps/AppsItem.vue'
 import Search from '@/assets/icons/search.svg'
 
-export default {
-  name: 'Apps',
-  components: {
-    AppsItem,
-    TextInput,
-    Search,
-  },
-  setup() {
-    const apps = ref(getApps()
-      .sort((a, b) => b.created - a.created))
+const apps = ref(getApps()
+  .sort((a, b) => b.created - a.created))
 
-    const search = ref('')
+const search = ref('')
 
-    const displayApps = computed(() => {
-      if (search.value) {
-        return apps.value.filter((app) => app.name.toLowerCase()
-          .includes(search.value.toLowerCase()))
-      }
-      return apps.value
-    })
-
-    return {
-      apps,
-      search,
-      displayApps,
-    }
-  },
-}
+const displayApps = computed(() => {
+  if (search.value) {
+    return apps.value.filter((app) => app.name.toLowerCase()
+      .includes(search.value.toLowerCase()))
+  }
+  return apps.value
+})
 </script>
 
 <style lang="stylus" scoped>
