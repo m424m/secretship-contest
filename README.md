@@ -1,6 +1,7 @@
 # Secretship JS contest submission
 
 Demo: https://secretship-contest.vercel.app/
+Component showcase: https://secretship-contest.vercel.app/#/showcase
 
 ## Project setup
 
