@@ -9,19 +9,20 @@
       <div class="container">
         <div class="col-5 col-md-10 offset-md-1">
           <h4>Basic info</h4>
-          <TextInput placeholder="A normal input" small-placeholder
+          <TextInput placeholder="A normal input" v-model="formData.input" small-placeholder
                      hint="This is just a normal input with a hint.">
             <template #info>
               TextInput has a prop named <b>small-placeholder</b>. It makes the placeholder do the
               thing when the field is focused.
             </template>
           </TextInput>
-          <Textarea placeholder="Textarea" hint="Textareas can have hints too!"/>
+          <Textarea placeholder="Textarea" v-model="formData.textarea"
+                    hint="Textareas can have hints too!"/>
           <Select :options="selectOptions" v-model="formData.select"
                   placeholder="Select" hint="This select holds a single value."/>
           <Select :options="selectOptions" v-model="formData.selectMultiple" multiple
                   placeholder="Multiple select" hint="And this one accepts an array."/>
-          <TextInput placeholder="0.00" type="number">
+          <TextInput placeholder="0.00" type="number" v-model="formData.prefixInput">
             <template #prefix>$</template>
             <template #info>There's also a #prefix slot.</template>
           </TextInput>
