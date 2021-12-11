@@ -1,33 +1,49 @@
 <template>
   <div class="login">
-    <telegram-login-temp
-      class="login__iframe"
-      mode="callback"
-      :telegram-login="botUsername"
-      @loaded="onLoad"
-      @callback="onLogin"/>
+<!--    <telegram-login-temp-->
+<!--      class="login__iframe"-->
+<!--      mode="callback"-->
+<!--      :telegram-login="botUsername"-->
+<!--      @loaded="onLoad"-->
+<!--      @callback="onLogin"/>-->
+    <div class="login__iframe" ref="iframe"/>
     <button class="login__facade" :disabled="!isLoaded">Log in</button>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { telegramLoginTemp } from 'vue3-telegram-login'
+// import { telegramLoginTemp } from 'vue3-telegram-login'
 import { setUserTelegramData } from '@/api'
 
 const router = useRouter()
 const isLoaded = ref(false)
 
 const botUsername = process.env.VITE_BOT_USERNAME
+const iframe = ref(null)
 
 const onLoad = () => {
   isLoaded.value = true
 }
+
 const onLogin = (result) => {
   setUserTelegramData(result)
   router.push('/apps')
+  window.onTelegramAuth = null
 }
+
+onMounted(() => {
+  const el = document.createElement('script')
+  el.src = 'https://telegram.org/js/telegram-widget.js?15'
+  el.dataset.telegramLogin = botUsername
+  el.dataset.size = 'large'
+  window.onTelegramAuth = onLogin
+  el.dataset.onauth = 'window.onTelegramAuth(e)'
+  el.onload = onLoad
+
+  iframe.value.appendChild(el)
+})
 </script>
 
 <style lang="stylus" scoped>
