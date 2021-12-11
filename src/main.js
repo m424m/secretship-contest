@@ -10,12 +10,10 @@ const app = createApp(App)
 
 app.config.devtools = true
 
-app.use(ClickOutside)
-
-app.use(createI18n)
-
-app.use(createMetaManager())
-
-app.use(store)
+app
+  .use(ClickOutside)
+  .use(createI18n)
+  .use(createMetaManager())
+  .use(store)
   .use(router)
   .mount('#app')

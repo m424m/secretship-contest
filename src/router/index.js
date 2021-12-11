@@ -9,6 +9,7 @@ import Wallet from '@/views/apps/Wallet.vue'
 import Users from '@/views/apps/Users.vue'
 import Settings from '@/views/apps/Settings.vue'
 import store from '@/store'
+import Showcase from '../views/Showcase.vue'
 
 const routes = [
   {
@@ -65,6 +66,16 @@ const routes = [
     path: '/help',
     name: 'Help',
     component: Help,
+  },
+  {
+    path: '/showcase',
+    name: 'Showcase',
+    component: Showcase,
+  },
+  {
+    path: '/showcase/subpage',
+    name: 'ShowcaseSub',
+    component: Showcase,
   },
   {
     path: '/:catchAll(.*)',

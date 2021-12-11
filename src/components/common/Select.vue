@@ -158,7 +158,10 @@ watch(() => search.value, (val) => {
 })
 
 const fallbackValue = computed(() => {
-  if (displayKey.value) return modelValue.value.map((i) => i[displayKey])
+  if (displayKey.value) {
+    if (multiple.value) return modelValue.value.map((i) => i[displayKey])
+    return modelValue[displayKey]
+  }
   return modelValue.value
 })
 </script>
