@@ -2,6 +2,7 @@
   @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 }
 @import "vars.styl"
+@import "layout.styl"
 
 *
 *::before
@@ -27,7 +28,7 @@ body
   //-webkit-font-smoothing antialiased
   //-moz-osx-font-smoothing grayscale
 
-  @media mobile
+  @media tablet
     max-width 600px
 
 main
@@ -183,37 +184,13 @@ form
     .radio-group
       margin 15px 0
 
-  @media mobile
+  @media tablet
     padding 0 20px
 
 .input-group
   display flex
   gap 15px
   flex-wrap wrap
-
-.columns
-  display flex
-  flex-wrap wrap
-  gap 20px
-  justify-content center
-
-  &.no-center
-    justify-content flex-start
-
-  @media mobile
-    flex-direction column
-    align-items center
-
-  .column
-    width 100%
-    max-width calc(50% - 10px)
-
-    @media desktop
-      &:only-child
-        max-width 400px
-
-    @media mobile
-      max-width 100%
 
 section:not(:first-child)
   margin-top 30px

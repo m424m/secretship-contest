@@ -1,7 +1,7 @@
 <template>
   <main>
-    <div class="columns">
-      <div class="column">
+    <div class="container">
+      <div class="col-6 offset-3 col-md-10 offset-md-1">
         <form @submit.prevent="saveData">
           <section>
             <h4>{{ $t('account.account') }}</h4>

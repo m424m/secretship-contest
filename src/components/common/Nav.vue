@@ -108,7 +108,7 @@ const user = getUser()
       height 19px
       color accent-dark
 
-  @media mobile
+  @media tablet
     &__breadcrumbs:not(.no-page-title) &__app-name span
       display none
 

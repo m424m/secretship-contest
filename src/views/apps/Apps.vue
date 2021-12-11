@@ -9,12 +9,12 @@
       <router-link class="button" to="/apps/create">{{ $t('apps.create') }}</router-link>
     </section>
 
-    <section class="columns no-center" v-if="apps.length">
+    <section class="container" v-if="apps.length">
       <AppsItem v-for="app in displayApps" :app="app" :key="app.id"/>
     </section>
 
-    <section class="columns" v-else>
-      <div class="column no-apps">
+    <section class="container" v-else>
+      <div class="col-12 no-apps">
         <p>{{ $t('apps.no_apps') }}</p>
       </div>
     </section>

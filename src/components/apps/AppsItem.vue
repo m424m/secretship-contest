@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="`/apps/${app.id}`" class="app column">
+  <router-link :to="`/apps/${app.id}`" class="app col-6 col-md-12">
     <div class="app__row">
       <div class="app__name">{{ app.name }}</div>
       <div class="app__balance">

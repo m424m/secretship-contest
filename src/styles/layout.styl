@@ -1,0 +1,28 @@
+@import "vars.styl"
+
+.container
+  display grid
+  width 100%
+  grid-gap 20px
+  align-items flex-start
+  grid-template-columns repeat(12, 1fr)
+  grid-auto-rows minmax(min-content, max-content)
+
+  > *
+    width 100%
+
+  grid-loop(size='')
+    for i in 1..12
+      .col-{size}{i}
+        grid-column-end span i
+      .offset-{size}{i}
+        grid-column-start i + 1
+      .offset-{size}-{0}
+        grid-column-start 0
+
+  grid-loop()
+  @media tablet
+    grid-loop('md-')
+  @media mobile
+    display flex
+    flex-direction column
