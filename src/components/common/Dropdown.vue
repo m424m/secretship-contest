@@ -52,6 +52,9 @@ watch(() => route.fullPath, close)
         display flex
         align-items center
 
+        &::before
+          content ''
+
         a
           display flex
           align-items center
