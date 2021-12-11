@@ -128,6 +128,7 @@ const onMouseUp = () => {
     left -6px
     top -6px
     border-radius 50%
+    transform translateZ(0)
     overflow hidden
     pointer-events none
 

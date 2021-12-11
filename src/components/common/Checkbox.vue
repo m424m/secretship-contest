@@ -110,7 +110,6 @@ const displayValue = computed(() => {
       height 100%
       top 0
       left 0
-      background-color accent
       background-image url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6.02132 10.2071C5.63079 9.81657 4.99763 9.81657 4.6071 10.2071C4.21658 10.5976 4.21658 11.2308 4.6071 11.6213L7.43553 14.4497C7.82605 14.8403 8.55402 14.8026 8.94454 14.412L15.6621 7.69453C16.0526 7.30401 16.0526 6.67084 15.6621 6.28032C15.2715 5.8898 14.6384 5.8898 14.2478 6.28032L8.17119 12.357L6.02132 10.2071Z' fill='white'/%3E%3C/svg%3E")
       background-repeat no-repeat
       background-position center
@@ -119,6 +118,7 @@ const displayValue = computed(() => {
 
   :checked + &__facade &__check
     border-color accent
+    background-color accent
 
     &::before
       opacity 1
@@ -131,6 +131,7 @@ const displayValue = computed(() => {
     left -7px
     top -7px
     border-radius 50%
+    transform translateZ(0)
     overflow hidden
     pointer-events none
 
