@@ -113,6 +113,35 @@ blockquote
   padding 5px 17px
   border-left 5px solid #179cde
 
+ul, ol
+  padding 0
+  font-size 15px
+
+ul
+  li
+    list-style none
+
+    &::before
+      content ''
+      display inline-block
+      width 7px
+      height 7px
+      vertical-align 0.1em
+      margin-right 12px
+      border-radius 50%
+      background-color accent-dark
+
+ol
+  counter-reset ol
+
+  li
+    list-style none
+
+    &::before
+      content counter(ol) '. '
+      counter-increment ol
+      margin-right 3px
+
 button
 input[type='submit']
 a.button
