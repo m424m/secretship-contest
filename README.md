@@ -29,7 +29,7 @@ VITE_BOT_USERNAME=[Telegram bot username]
 VITE_APP_NAME=[App name]
 ```
 
-All strings for i18n are located in `src/i18n.yaml`.
+All strings for i18n are located in `src/i18n/locales`.
 
 All major elements (text input, select, radio buttons, checkboxes, modal windows, etc.) have been custom-made from
 scratch. However, the architecture of the project assumes that additional logic for components (for example, adding

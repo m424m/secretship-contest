@@ -1,11 +1,5 @@
 <template>
   <div class="login">
-<!--    <telegram-login-temp-->
-<!--      class="login__iframe"-->
-<!--      mode="callback"-->
-<!--      :telegram-login="botUsername"-->
-<!--      @loaded="onLoad"-->
-<!--      @callback="onLogin"/>-->
     <div class="login__iframe" ref="iframe"/>
     <button class="login__facade" :disabled="!isLoaded">Log in</button>
   </div>
@@ -14,13 +8,11 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
-// import { telegramLoginTemp } from 'vue3-telegram-login'
 import { setUserTelegramData } from '@/api'
 
 const router = useRouter()
-const isLoaded = ref(false)
-
 const botUsername = process.env.VITE_BOT_USERNAME
+const isLoaded = ref(false)
 const iframe = ref(null)
 
 const onLoad = () => {
