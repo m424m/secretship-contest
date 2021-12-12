@@ -93,8 +93,8 @@ const openDropdown = () => {
   isOpen.value = true
   field.value.$el.scrollIntoView()
 }
-const closeDropdown = () => {
-  isOpen.value = false
+const closeDropdown = (e) => {
+  if (!e?.relatedTarget?.classList.contains('select__option')) isOpen.value = false
 }
 
 const selectOption = (option) => {

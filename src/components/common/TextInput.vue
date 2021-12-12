@@ -73,14 +73,14 @@ const onInput = (e) => {
   emit('update:modelValue', e.target.value)
 }
 
-const onFocus = () => {
+const onFocus = (e) => {
   isFocused.value = true
-  emit('focus')
+  emit('focus', e)
 }
 
-const onBlur = () => {
+const onBlur = (e) => {
   isFocused.value = false
-  emit('blur')
+  emit('blur', e)
 }
 
 const onKeyDown = (e) => {
