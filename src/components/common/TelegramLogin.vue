@@ -19,8 +19,8 @@ const onLoad = () => {
   isLoaded.value = true
 }
 
-const onLogin = (result) => {
-  setUserTelegramData(result)
+const onLogin = (user) => {
+  setUserTelegramData(user)
   router.push('/apps')
   window.onTelegramAuth = null
 }
@@ -31,7 +31,7 @@ onMounted(() => {
   el.dataset.telegramLogin = botUsername
   el.dataset.size = 'large'
   window.onTelegramAuth = onLogin
-  el.dataset.onauth = 'window.onTelegramAuth(e)'
+  el.dataset.onauth = 'onTelegramAuth(user)'
   el.onload = onLoad
 
   iframe.value.appendChild(el)
