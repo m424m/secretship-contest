@@ -42,11 +42,11 @@
 
 <script setup>
 import { toRefs } from 'vue'
+import { useI18n } from 'vue-i18n'
 import dayjs from 'dayjs'
 import Ton from '@/assets/icons/ton.svg'
 import { addMoneyToApp, withdrawMoneyFromApp } from '@/api'
 import Table from '../../components/common/Table.vue'
-import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 
