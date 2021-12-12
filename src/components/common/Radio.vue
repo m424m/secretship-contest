@@ -117,7 +117,7 @@ const onMouseUp = () => {
     border-color $accent
 
     &::before
-      transform translate(-50%, -50%)
+      transform translate(-50%, -50%) scale(1)
       background-color $accent
 
   &__ripple
