@@ -35,7 +35,7 @@
 import { computed, ref, toRefs } from 'vue'
 
 const props = defineProps({
-  columns: Array,
+  columns: Object,
   data: Array,
 })
 
