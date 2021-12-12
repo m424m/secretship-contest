@@ -192,8 +192,9 @@ defineExpose({ focus })
       margin 0
 
   &__prefix
-    padding 17px 15px
+    padding 15px
     padding-right 0
+    margin-top 1px
     transition opacity .2s ease
     align-self flex-start
     cursor default
