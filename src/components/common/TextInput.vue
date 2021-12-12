@@ -180,6 +180,7 @@ defineExpose({ focus })
     transition box-shadow .2s ease
     border none
     background none
+    -moz-appearance textfield
 
     &::placeholder
       color transparent
