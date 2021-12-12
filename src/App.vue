@@ -19,7 +19,6 @@ useMeta({
   title: '',
   htmlAttrs: {
     lang: 'en',
-    amp: true,
   },
 })
 
