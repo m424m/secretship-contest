@@ -71,18 +71,18 @@ const onBlur = () => {
   box-shadow inset 0 0 0 1px #d9d9d9
   border-radius 6px
   transition box-shadow .2s ease
-  cursor unquote('text')
+  cursor text
   flex-wrap wrap
 
   .focus &
   &.focus
-    box-shadow inset 0 0 0 2px accent
+    box-shadow inset 0 0 0 2px $accent
 
     .invalid&
-      box-shadow inset 0 0 0 2px error
+      box-shadow inset 0 0 0 2px $error
 
   &.invalid
-    box-shadow inset 0 0 0 1px error
+    box-shadow inset 0 0 0 1px $error
 
   &.disabled
     opacity .65
@@ -95,7 +95,7 @@ const onBlur = () => {
     padding 15px
     margin 0
     font-family inherit
-    color text
+    color $text
     font-size 14px
     line-height 18px
     flex 1
@@ -185,7 +185,7 @@ const onBlur = () => {
   &__info
     font-size 13px
     line-height 17px
-    color text-secondary
+    color $text-secondary
     padding-left 15px
     padding-right 5px
     margin-top 8px
@@ -196,5 +196,5 @@ const onBlur = () => {
 
     &-invalid
       font-weight 500
-      color error
+      color $error
 </style>

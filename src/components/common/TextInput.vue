@@ -106,7 +106,7 @@ defineExpose({ focus })
   box-shadow inset 0 0 0 1px #d9d9d9
   border-radius 6px
   transition box-shadow .2s ease
-  cursor unquote('text')
+  cursor text
   flex-wrap wrap
 
   &__wrapper
@@ -121,16 +121,16 @@ defineExpose({ focus })
 
   .focus &
   &.focus
-    box-shadow inset 0 0 0 2px accent
+    box-shadow inset 0 0 0 2px $accent
 
     .invalid&
-      box-shadow inset 0 0 0 2px error
+      box-shadow inset 0 0 0 2px $error
 
   &.invalid
-    box-shadow inset 0 0 0 1px error
+    box-shadow inset 0 0 0 1px $error
 
   &.invalid &__small-placeholder
-    color error
+    color $error
 
   &.disabled
     opacity .65
@@ -138,7 +138,7 @@ defineExpose({ focus })
   &__label
     width 100%
     flex 1
-    cursor unquote('text')
+    cursor text
 
   &:not(.small-placeholder) &__label
     position relative
@@ -173,7 +173,7 @@ defineExpose({ focus })
   &__field
     width 100%
     font-size 14px
-    color text
+    color $text
     line-height 18px
     padding 15px
     margin 0
@@ -240,7 +240,7 @@ defineExpose({ focus })
 
   &:not(.invalid) &__field:focus + &__small-placeholder
   .focus &:not(.invalid) &__field + &__small-placeholder
-    color link
+    color $link
 
   &__field:not(:placeholder-shown) + &__small-placeholder
   &__field:focus + &__small-placeholder
@@ -343,7 +343,7 @@ defineExpose({ focus })
   &__info
     font-size 13px
     line-height 17px
-    color text-secondary
+    color $text-secondary
     padding-left 15px
     padding-right 5px
     margin-top 8px
@@ -354,7 +354,7 @@ defineExpose({ focus })
 
     &-invalid
       font-weight 500
-      color error
+      color $error
 
   &__loading
     display block

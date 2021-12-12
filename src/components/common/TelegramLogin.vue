@@ -69,5 +69,5 @@ onMounted(() => {
     pointer-events none
 
   &:hover &__facade
-    background-color accent-hover
+    background-color $accent-hover
 </style>

@@ -17,29 +17,23 @@
     <section>
       <h4>{{ $t('app.transaction_history') }}</h4>
 
-      <table v-if="transactions.length">
-        <thead>
-        <tr>
-          <th>{{ $t('common.date') }}</th>
-          <th>{{ $t('app.from_to') }}</th>
-          <th>{{ $t('app.amount') }}</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="transaction in transactions" :key="transaction.id">
-          <td class="date">{{ formatDate(transaction.timestamp) }}</td>
-          <td class="from-to">
-            <ArrowUp class="from-to__to" v-if="transaction.to"/>
-            <ArrowDown class="from-to__from" name="arrow-down" v-else-if="transaction.from"/>
-            <a href="#">{{ (transaction.to || transaction.from).name }}</a>
-          </td>
-          <td class="amount">
-            {{ transaction.amount }}
-            <Ton/>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+      <Table v-if="transactions.length" :columns="columns" :data="transactions">
+        <template #timestamp="{value}">{{
+            dayjs(value)
+              .format('MMM DD, YYYY HH:mm')
+          }}
+        </template>
+        <template #address="{value}">
+          <router-link to="">
+            {{ value.slice(0, 10) }}...{{ value.slice(value.length - 3) }}
+          </router-link>
+        </template>
+        <template #amount="{value}">
+          <span
+            :class="['transaction-amount', value > 0 ? 'plus' : 'minus']">
+            {{ value > 0 ? '+' : '-' }}{{ Math.abs(value) }} <Ton/></span>
+        </template>
+      </Table>
 
       <p class="no-transactions" v-else>{{ $t('app.no_transactions') }}</p>
     </section>
@@ -50,9 +44,11 @@
 import { toRefs } from 'vue'
 import dayjs from 'dayjs'
 import Ton from '@/assets/icons/ton.svg'
-import ArrowUp from '@/assets/icons/arrow-up.svg'
-import ArrowDown from '@/assets/icons/arrow-down.svg'
 import { addMoneyToApp, withdrawMoneyFromApp } from '@/api'
+import Table from '../../components/common/Table.vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const props = defineProps({
   app: {
@@ -70,52 +66,48 @@ const withdraw = () => {
   withdrawMoneyFromApp(app.value.id, 100)
 }
 
+const columns = {
+  timestamp: {
+    name: t('app.date'),
+    sortable: true,
+  },
+  address: {
+    name: t('app.from_to'),
+  },
+  amount: {
+    name: t('app.amount'),
+    sortable: true,
+    sort: (a, b) => Math.abs(a) - Math.abs(b),
+  },
+}
+
 // I have no idea what the format should be :(
 const transactions = [
   {
     id: 0,
     timestamp: 1638868441899,
-    from: {
-      name: 'User 1',
-      id: 12345,
-    },
-    to: null,
+    address: '0:00cc09fc8d7bbddf2c70590eb94284960a53ab2cb650739211bcf4069d2a1cac',
     amount: 50,
   },
   {
     id: 1,
     timestamp: 1638867403786,
-    from: null,
-    to: {
-      name: 'User 2',
-      id: 54321,
-    },
-    amount: 100,
+    address: '0:f861992dc58737db9405818375f371029c8854036137cacb40eefa32f58860c5',
+    amount: -100,
   },
   {
     id: 2,
     timestamp: 1638668416900,
-    from: {
-      name: 'User 3',
-      id: 9853,
-    },
-    to: 0,
-    amount: 150,
+    address: '0:18b753cc9f6567775a562a3eb8e78a058ec3bcb9042f5bbecc8f6a5bfaeb81c0',
+    amount: -50,
   },
   {
     id: 3,
     timestamp: 1638368430968,
-    from: null,
-    to: {
-      name: 'User 8',
-      id: 8888,
-    },
-    amount: 50,
+    address: '0:a673b74977a53b4a41ef854bf0d27e67f08ca45a9dc724ad6e5aa71c0d544a38',
+    amount: 200,
   },
 ]
-
-const formatDate = (date) => dayjs(date)
-  .format('MMM DD, YYYY HH:mm')
 </script>
 
 <style lang="stylus" scoped>
@@ -130,23 +122,18 @@ const formatDate = (date) => dayjs(date)
     gap 8px
 
     &-usd
-      color text-secondary
+      color $text-secondary
 
-  table
-    .date
-      color text-secondary
+  .transaction-amount
+    font-weight 500
 
-    .from-to
-      svg
-        margin-right 8px
+    &.plus
+      color $success
 
-      &__to
-        color error
-
-      &__from
-        color success
+    &.minus
+      color $error
 
   .no-transactions
     text-align center
-    color text-secondary
+    color $text-secondary
 </style>

@@ -134,7 +134,7 @@ defineExpose({
     .small &
       width 350px
 
-      @media tablet
+      @media $tablet
         width 100%
         margin 40px
         max-height calc(100vh - 80px)

@@ -28,7 +28,7 @@ const props = defineProps({
   line-height 16px
   font-weight 600
   -webkit-font-smoothing antialiased
-  background-color accent
+  background-color $accent
   border-radius 4px
   margin 3px 6px 3px 0
   padding 5px 9px

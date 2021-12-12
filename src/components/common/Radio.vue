@@ -76,7 +76,7 @@ const onMouseUp = () => {
     margin-bottom 0
     margin-top 18px
 
-    @media desktop
+    @media $desktop
       padding-left 15px
 
   &__input
@@ -114,11 +114,11 @@ const onMouseUp = () => {
       transition all .2s ease
 
   :checked + &__facade &__check
-    border-color accent
+    border-color $accent
 
     &::before
       transform translate(-50%, -50%)
-      background-color accent
+      background-color $accent
 
   &__ripple
     display block

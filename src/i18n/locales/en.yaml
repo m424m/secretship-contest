@@ -19,6 +19,7 @@ app:
   add_funds: "Add funds"
   withdraw: "Withdraw"
   transaction_history: "Transaction history"
+  date: "Date"
   from_to: "From / To"
   amount: "Amount"
   no_transactions: "No transactions"
@@ -33,6 +34,5 @@ leave_confirmation:
   text: "You have unsaved changes, do you really want to leave this page?"
   leave: "Leave"
 common:
-  date: "Date"
   cancel: "Cancel"
   close: "Close"

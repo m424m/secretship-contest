@@ -86,7 +86,7 @@ const user = getUser()
   border-bottom 1px solid #e6e6e6
   gap 15px
 
-  @media desktop
+  @media $desktop
     padding 14px 0
 
   &__breadcrumbs
@@ -106,9 +106,9 @@ const user = getUser()
     svg
       display block
       height 19px
-      color accent-dark
+      color $accent-dark
 
-  @media tablet
+  @media $tablet
     &__breadcrumbs:not(.no-page-title) &__app-name span
       display none
 
@@ -127,7 +127,7 @@ const user = getUser()
       display flex
       align-items center
       font-size 14px
-      color link
+      color $link
       font-weight 500
 
       svg

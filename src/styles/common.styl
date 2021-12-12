@@ -18,7 +18,7 @@ body
   margin 0
   width 100%
   height 100%
-  color: text
+  color $text
 
 #app
   height 100%
@@ -28,7 +28,7 @@ body
   //-webkit-font-smoothing antialiased
   //-moz-osx-font-smoothing grayscale
 
-  @media tablet
+  @media $tablet
     max-width 600px
 
 main
@@ -95,7 +95,7 @@ hr
 
 a
   text-decoration none
-  color link
+  color $link
 
   &:hover
     text-decoration underline
@@ -104,7 +104,7 @@ strong
   font-weight 500
 
 small
-  color text-secondary
+  color $text-secondary
   font-size 13px
 
 blockquote
@@ -129,7 +129,7 @@ ul
       vertical-align 0.1em
       margin-right 12px
       border-radius 50%
-      background-color accent-dark
+      background-color $accent-dark
 
 ol
   counter-reset ol
@@ -150,7 +150,7 @@ a.button
   line-height 20px
   font-weight 500
   padding 14px 22px
-  background-color accent
+  background-color $accent
   border none
   transition background-color .2s ease
   text-transform none
@@ -169,14 +169,14 @@ a.button
 
   &.plain
     background none
-    color link
+    color $link
     padding 0
     border-radius 0
     font-size 1rem
     font-weight 500
 
   &:not(.plain):hover
-    background-color accent-hover
+    background-color $accent-hover
 
   &:disabled
     color rgba(255, 255, 255, 0.6)
@@ -213,7 +213,7 @@ form
     .radio-group
       margin 15px 0
 
-  @media tablet
+  @media $tablet
     padding 0 20px
 
 .input-group

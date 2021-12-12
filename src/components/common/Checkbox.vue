@@ -117,8 +117,8 @@ const displayValue = computed(() => {
       transition all .2s ease
 
   :checked + &__facade &__check
-    border-color accent
-    background-color accent
+    border-color $accent
+    background-color $accent
 
     &::before
       opacity 1

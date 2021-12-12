@@ -26,6 +26,6 @@
       background-color #f0f6fa
 
     &.router-link-exact-active
-      background-color accent-dark
+      background-color $accent-dark
       color white
 </style>

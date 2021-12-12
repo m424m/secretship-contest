@@ -9,7 +9,7 @@
       <router-link class="button" to="/apps/create">{{ $t('apps.create') }}</router-link>
     </section>
 
-    <section class="container" v-if="apps.length">
+    <section class="container apps__list" v-if="apps.length">
       <AppsItem v-for="app in displayApps" :app="app" :key="app.id"/>
     </section>
 
@@ -52,8 +52,11 @@ const displayApps = computed(() => {
     width 17px
     height 17px
 
+.apps__list
+  gap 20px
+
 .no-apps
-  color text-secondary
+  color $text-secondary
   text-align center
 
   button

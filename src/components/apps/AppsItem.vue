@@ -40,7 +40,7 @@ const created = dayjs(props.app.created)
   box-shadow: 0 1px 2px rgba(0, 0, 0, .07)
   border-radius 6px
   padding 20px
-  color text
+  color $text
   text-decoration none
 
   &__row
@@ -61,7 +61,7 @@ const created = dayjs(props.app.created)
 
     &-usd
       font-size 14px
-      color text-secondary
+      color $text-secondary
 
       &::before
         content '/'
@@ -69,6 +69,6 @@ const created = dayjs(props.app.created)
         margin 0 5px
 
   &__created
-    color text-secondary
+    color $text-secondary
     font-size 14px
 </style>

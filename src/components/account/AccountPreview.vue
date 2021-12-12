@@ -24,7 +24,7 @@ const user = getUser()
 .account
   display flex
   align-items center
-  border 2px solid accent
+  border 2px solid $accent
   border-radius 6px
   padding 12px
   gap 15px
@@ -58,6 +58,6 @@ const user = getUser()
 
   &__type
     font-size 13px
-    color text-secondary
+    color $text-secondary
     margin-top 2px
 </style>
